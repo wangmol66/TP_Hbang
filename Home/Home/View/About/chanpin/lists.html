@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>华邦产品</title>
+    <meta name="viewport" content="width=device-width, minimum-scale=1, maximum-scale=1">
+    <meta content="" name="description">
+    
+    <link rel="stylesheet" href="__HOME__/about/chanpin/style/style.css" type="text/css">
+    <link rel="stylesheet" href="__HOME__/about/chanpin/style/swiper.min.css">
+    <script src="__HOME__/about/chanpin/js/jquery.min.js"></script>
+    <style>
+        .chanpin-list1 a .chanpin-list-flPhoto{
+            height: 7em;
+        }
+        .chanpin-list1 a .chanpin-list-flPhoto img{
+            height: 100%;
+        }
+        .mengban{
+            width: 100%;
+            position: fixed;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            right: 0;
+            background-color: rgba(0, 0, 0, .6);
+            z-index: 999;
+            display: none;
+        }
+        .xlbas{
+            z-index: 1000;
+            clear: both;
+            display: none;
+        }
+        .xlbas>h3>a{
+            display: block;
+            padding: .85em;
+            font-size: 1.15em;
+            color: #333;
+            border-bottom: 1px solid #e6e6e6;
+        }
+        .chanpin-list-frcontent fl{
+		    font-family: inherit;
+		}
+    </style>
+    
+		<link rel="stylesheet" type="text/css" href="__HOME__/about/css/base.css" />
+		<link rel="stylesheet" type="text/css" href="__HOME__/about/css/style.css" />
+		<script type="text/javascript" data-main="__HOME__/about/js/cont" src="__HOME__/about/js/require.js"></script>
+		<link rel="stylesheet" href="__HOME__/about/chanpin/style/base.css" type="text/css">
+</head>
+<body style="background-color:#fff;">
+<div class="mengban"></div>
+<div class="top-top">
+		<div id="header" class="market">
+		  <div class="swiper-wrapper">
+		  	<foreach name="type" item="vo">
+		    	<div class="swiper-slide <?php if($vo['column_id'] == $column_id){echo 'active';}?> "><a href="{:U('About/chanpin/type/'.$vo['column_id'])}">{$vo.col_name}</a></div>
+		    </foreach>
+		  </div>
+		</div>
+<!--     <ul class="paixuUl">
+    	<foreach name="type" item="vo">
+        <li class="first "><a href="{:U('About/chanpin/type/'.$vo['column_id'])}">{$vo.col_name}</a></li>
+		</foreach>
+    </ul> -->
+    
+    
+    <script>
+        $(".paixuUl>li").click(function(){
+            $(this).addClass("active").siblings().removeClass("active");
+        })
+    </script>
+</div>
+
+<section>
+
+    <div class="zhsh-list">
+        <foreach name="info" item="vo">
+            <div class="chanpin-list1">
+                <a href="{:U('About/shows/id/'.$vo['article_id'])}">
+                    <div class="chanpin-list-flPhoto fl">
+                        <img src="{$vo.show_url}" alt=""/>
+                    </div>
+                    <div class="chanpin-list-frcontent fl">
+                        <h3 style="">{$vo.title}</h3>
+                        <h5>{$vo.content}</h5>
+                        <h6>
+                        <span><i class="xiaotubiao"><img src="__HOME__/about/chanpin/img/guanjia/xiaophoto1.png" alt=""/></i>{$vo.page_view}</span>
+                            <span><i class="xiaotubiao"><img src="__HOME__/about/chanpin/img/guanjia/xiaophoto2.png" alt=""/></i>{$vo.create_time|strtotime|date="Y-m-d",###}</span>
+                            <span><i class="xiaotubiao"><img src="__HOME__/about/chanpin/img/guanjia/xiaophoto3.png" alt=""/></i>{$vo.user_name}</span></h6>
+                    </div>
+                </a>
+            </div>
+        </foreach>
+    </div>
+</section>
+
+</body>
+</html>

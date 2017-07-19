@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, minimum-scale=1, maximum-scale=1">
+		<title></title>
+		<link rel="stylesheet" href="__HOME__/css/swiper.min.css" />
+		<script type="text/javascript" src="__HOME__/js/jquery-1.9.1.min.js"></script>
+		<script type="text/javascript" src="__HOME__/js/swiper.min.js"></script>
+		<link rel="stylesheet" type="text/css" href="__HOME__/css/base.css" />
+		<link rel="stylesheet" href="__HOME__/css/main.css" />
+		<link rel="stylesheet" type="text/css" href="__HOME__/css/animate.css" />
+		<script src="__SLIKE__/layer.mobile-v2.0/layer_mobile/layer.js"></script> <!--Layer提示消息-->
+		<style>
+			.z-timu{
+				display:none;
+			}
+			
+		</style>
+	</head>
+
+	<body>
+
+<form id="form-submit">
+		<div class="content">
+			<div class="floor2 marginT">
+				<h3>会议信息</h3>
+			</div>
+			<ul class="headline">
+				<li>
+					<label class="lab">会议标题</label>
+					<input type="text" name="title" id="" value="" placeholder="请填写会议主题"/>
+				</li>
+				<li>
+					<label class="lab">会议地点</label>
+					<input type="text" name="address" id="" value="" placeholder="请选择会议地点"/>
+				</li>
+				<li>
+					<label class="lab1">会议内容</label>
+				</li>
+				<li class="borderB">
+					<textarea placeholder="请填写会议主要内容" name="content"></textarea>
+				</li>
+			</ul>
+			<div class="floor2">
+				<h3>奖励信息</h3>
+			</div>
+			<ul class="headline bor_bb">
+				<li class="z-btn">
+					<div class="headline-left">
+						<label>启用会议推广点</label>
+					</div>
+					<i class="tubiao">
+						<img src="__HOME__/img/pic16.png" id="tub"/>
+					</i>
+					<h6></h6>
+				</li>
+				<!-- 启动会议推广点    -->
+				<script>
+					var isQuestion = 0;  //是否开启题 默认关闭
+					var answer = ''
+						$(function(){
+							$('.z-btn').click(function(){
+								var o = $('.z-timu');
+								var tub = $('#tub');
+								if(o.is(":hidden")){
+									o.show();
+									tub.attr('src','__HOME__/img/pic17.png')
+									isQuestion = 1;
+								}else{
+									o.hide();
+									tub.attr('src','__HOME__/img/pic16.png')
+									isQuestion = 0;
+								}
+							})
+							
+							$('.z-timu').on('click','#z-add',function(){
+								
+								$(this).parent('.tub').html('<img id="delete" src="/hbang/Public/Home/img/pic18.png">');
+								var html = '<li class="marginB">'
+									html += '<div class="gou" data-id="0">'
+									html += '	<img src="__HOME__/img/pic16.png"/>'
+									html += '</div>'
+									html += '<div class="headline-left1">'
+									html += '	<label class="lab letter" style="left: 32.5px;">A、</label>'
+									html += '	<input type="text" name="answer[]" id="" value="" style="padding-left: 3.5em;" placeholder="请填写选项">'
+									html += '</div>'
+									html += '<div class="tubiao-box">'
+									html += '	<i class="tub">'
+									html += '		<a href="javascript:" id="z-add"><img src="__HOME__/img/pic19.png"/></a>'
+									html += '	</i>'
+									//html += '	<i class="tub">'
+									//html += '		<img id="delete" src="__HOME__/img/pic18.png"/>'
+									//html += '	</i>'
+									html += '</div>'
+									html += '</li>'
+									
+									$('.marginB:last').after(html)
+									
+									var ch = $('.z-timu').children('.marginB');
+									for(var i=0;i<ch.length;i++){
+										$(ch[i]).find('.headline-left1>label').text(i+1+'、')
+										$(ch[i]).find('.gou').attr('data-id',i+1)
+									}
+									console.log(ch);
+							})
+							
+							$('.z-timu').on('click','#delete',function(){
+								$(this).parents('.marginB').remove();
+								var ch = $('.z-timu').children('.marginB');
+								for(var i=0;i<ch.length;i++){
+									$(ch[i]).find('.headline-left1>label').text(i+1+'、')
+									$(ch[i]).find('.gou').attr('data-id',i+1)
+								}
+							})
+							
+							//勾选正确答案
+							$(".z-timu").on('click','.gou',function() {
+								if($(this).hasClass("active")) {
+									$(this).find('img').attr('src','__HOME__/img/pic16.png')
+									$(this).removeClass("active");
+								} else {
+									$(this).addClass("active");
+									$(this).find('img').attr('src','__HOME__/img/pic17.png')
+								}
+								
+								//循环 出ID
+								var ch = $('.z-timu').children('.marginB');
+								answer = '';
+								for(var i=0;i<ch.length;i++){
+									if($(ch[i]).find('.gou').hasClass("active")){
+										if(answer != ''){
+											answer +=',';
+										}
+										answer += $(ch[i]).find('.gou').attr('data-id')
+									}
+								}
+								
+								console.log(answer);
+							})
+						})
+				</script>
+				<div class="z-timu">
+					<li>
+						<label class="lab letter">题　　目</label>
+						<input type="text" name="question" id="" value="" placeholder="请填写会议题目"/>
+					</li>
+					<li>
+						<label class="lab1 letter">答　　案</label>
+					</li>
+					<li class="marginB">
+						<div class="gou" data-id="0">
+							<img src="/hbang/Public/Home/img/pic16.png">
+						</div>
+						<div class="headline-left1">
+							<label class="lab letter" style="left: 32.5px;">1、</label> <input
+								type="text" name="answer[]" id="" value="" style="padding-left: 3.5em;"
+								placeholder="请填写选项">
+						</div>
+						<div class="tubiao-box">
+							<i class="tub"> <a href="javascript:" id="z-add"><img
+									src="/hbang/Public/Home/img/pic19.png"></a>
+							</i> 
+						</div>
+					</li>
+					
+					<!-- <li>
+						<label class="lab letter">正确答案</label>
+						<input type="text" name="true" id="" value="" placeholder="填写编号,单选例如:1,多选例如:1,2"/>
+					</li> -->
+					<li>
+						<label class="lab letter">奖　　品</label>
+						<input type="text" name="prize" id="" value="" placeholder="请填写奖品数量，如果不发，请置空"/>
+					</li>
+				</div>
+			</ul>
+			<button class="btn" type="submit">
+				发起会议
+			</button>
+		</div>
+</form>
+		<script>
+			var swiper = new Swiper('.contorl-wz', {
+				slidesPerView: 3,
+				paginationClickable: true,
+				spaceBetween: 10
+			});
+			$(function() {
+				$(".dianzan").click(function() {
+					if($(this).hasClass("pulse")) {
+						$(this).removeClass("pulse");
+					} else {
+						$(this).addClass("animated pulse");
+					}
+				})
+				
+			})
+			
+			//异步提交
+			$('#form-submit').submit(function(){
+				console.log('111');
+				var data = $(this).serialize();
+				//console.log(data);
+				data+='&isquestion='+isQuestion+'&true='+answer;
+				$.post("{:U('fabuAjax')}",data,function(data){
+					if(data.status){
+	                	setTimeout(function(){
+	                		location.href = "{:U('index')}";
+	                	},500)
+					}
+                	//提示
+       			    layer.open({
+       			       content: data.info
+       			       ,skin: 'msg'
+       			       ,time: 2 //2秒后自动关闭
+       			    });
+					
+				})
+				return false;
+			})
+		</script>
+
+	</body>
+
+</html>

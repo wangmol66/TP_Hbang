@@ -1,0 +1,147 @@
+
+<script src="__HOME__/weui/dist/js/zepto.min.js"></script>
+<script src="__HOME__/weui/dist/js/weui.min.js"></script>
+
+<div id="dialogs">
+	<!--BEGIN toast-->
+	<div id="loadingToast" style="display: none;">
+		<div class="weui-mask_transparent"></div>
+		<div class="weui-toast">
+			<i class="weui-loading weui-icon_toast"></i>
+			<p class="weui-toast__content">账户登录中</p>
+		</div>
+	</div>
+	<!--end toast-->
+
+	<!--BEGIN toast-->
+	<div id="toast" style="display: none;">
+		<div class="weui-mask_transparent"></div>
+		<div class="weui-toast">
+			<i class="weui-icon-success-no-circle weui-icon_toast"></i>
+			<p class="weui-toast__content">登陆成功</p>
+		</div>
+	</div>
+	<!--end toast-->
+
+	<!--BEGIN dialog2-->
+	<div class="js_dialog" id="iosDialog2" style="display: none;">
+		<div class="weui-mask"></div>
+		<div class="weui-dialog">
+			<div class="weui-dialog__bd">弹窗内容，告知当前状态、信息和解决方法，描述文字尽量控制在三行内</div>
+			<div class="weui-dialog__ft">
+				<a href="javascript:;"
+					class="weui-dialog__btn weui-dialog__btn_primary">好的</a>
+			</div>
+		</div>
+	</div>
+	<!--END dialog2-->
+</div>
+
+<!--BEGIN actionSheet-->
+<div>
+	<div class="weui-mask" id="iosMask" style="display: none"></div>
+	<div class="weui-actionsheet" id="iosActionsheet">
+		<div class="weui-actionsheet__menu">
+			<div class="weui-actionsheet__cell">示例菜单</div>
+			<div class="weui-actionsheet__cell">示例菜单</div>
+			<div class="weui-actionsheet__cell">示例菜单</div>
+			<div class="weui-actionsheet__cell">示例菜单</div>
+		</div>
+		<div class="weui-actionsheet__action">
+			<div class="weui-actionsheet__cell" id="iosActionsheetCancel">取消</div>
+		</div>
+	</div>
+</div>
+
+<div class="weui-skin_android" id="androidActionsheet"
+	style="display: none">
+	<div class="weui-mask"></div>
+	<div class="weui-actionsheet">
+		<div class="weui-actionsheet__menu">
+			<div class="weui-actionsheet__cell">示例菜单</div>
+			<div class="weui-actionsheet__cell">示例菜单</div>
+			<div class="weui-actionsheet__cell">示例菜单</div>
+		</div>
+	</div>
+</div>
+<!--END actionSheet-->
+
+<script>
+	//+-----
+	//+ 微信UI JS
+	//+-----
+	var WeUi = {
+
+		info : "zzzzz",
+		loadingToast : function(text,time) {
+			var $loadingToast = $('#loadingToast');
+			if ($loadingToast.css('display') != 'none')
+				return;
+			
+			$('.weui-toast__content').text(text);
+			
+			if(!time){
+				time = 2000;
+			}
+			
+			$loadingToast.fadeIn(100);
+			setTimeout(function() {
+				$loadingToast.fadeOut(100);
+			}, time);
+			return $loadingToast;
+		},
+
+		Toast : function(text,url) {
+			var $toast = $('#toast');
+			if ($toast.css('display') != 'none')
+				return;
+			
+			$('.weui-toast__content').text(text);
+			
+			$toast.fadeIn(100);
+			setTimeout(function() {
+				$toast.fadeOut(100);
+				location.href = url;
+			}, 2000);
+			return $toast;
+		},
+		//iOS Dialog样式二
+		iosDialog2 : function(text) {
+			var $toast = $('#iosDialog2');
+			$toast.find('.weui-dialog__bd').html(text);
+			$toast.fadeIn(200);
+			return $toast;
+		},
+		
+		//iOS Dialog样式二
+		iosActionsheet : function() {
+			var $iosActionsheet = $('#iosActionsheet');
+			$iosActionsheet.addClass('weui-actionsheet_toggle');
+			$iosMask.fadeIn(200);
+		},
+		
+		showPicker : function(data){
+			  weui.picker(data,{
+	                onChange: function (result) {
+	                    console.log(result);
+	                },
+	                onConfirm: function (result) {
+	                    console.log(result);
+	                }
+	            });
+		},
+
+	}
+
+	$('#dialogs').on('click', '.weui-dialog__btn', function() {
+		$(this).parents('.js_dialog').fadeOut(200);
+	});
+
+	$('#iosActionsheetCancel').on('click', hideActionSheet);
+	
+	function hideActionSheet() {
+        $iosActionsheet.removeClass('weui-actionsheet_toggle');
+        $iosMask.fadeOut(200);
+    }
+</script>
+

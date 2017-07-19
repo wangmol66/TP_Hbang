@@ -1,0 +1,84 @@
+<include file="Public:header"/>
+<style type="text/css">
+	div .radio-inline:nth-child(2), div .checkbox-inline:nth-child(2) {
+	    margin-left: 10px;
+	}
+</style>
+<div class="page-container"> 
+  <!-- BEGIN SIDEBAR --> 
+  <include file="Public:sidebar" /> 
+  <!-- END SIDEBAR --> 
+  <!-- BEGIN CONTENT -->
+  <div class="page-content-wrapper">
+    <div class="page-content"> 
+      <!-- BEGIN PAGE HEADER-->
+      <div class="row">
+        <div class="col-md-12"> 
+          <!-- BEGIN PAGE TITLE & BREADCRUMB-->
+          <h3 class="page-title"> <present name="edit">编辑<else />新增</present>用户 </h3>
+          <ul class="page-breadcrumb breadcrumb">
+          	<li class="btn-group"> <a href="{:U('User/index')}" class="btn default"><i class="fa fa-chevron-left"></i> 返回</a> </li>
+            <li> <a href="javascript:void(0);"> 用户 </a> <i class="fa fa-angle-right"></i> </li>
+            <li> <a href="{:U('Menu/index?pid='.I('pid'))}"> 用户列表 </a> <i class="fa fa-angle-right"></i></li>
+            <li> <present name="edit">编辑<else />新增</present></li>
+          </ul>
+          <!-- END PAGE TITLE & BREADCRUMB--> 
+        </div>
+      </div>
+      <div class="row">
+			<div class="col-md-12">
+				<!-- BEGIN VALIDATION STATES-->
+				<div class="portlet box">
+					<div class="portlet-body form">
+						<!-- BEGIN FORM-->
+						<form action="{:U()}" class="form-horizontal" method="post">
+							<div class="form-body">
+								<div class="form-group">
+						            <label class="control-label col-md-3">用户名  <span class="required">*</span></label>
+						            <div class="col-md-6">
+						                <input type="text" class="form-control required" name="username" value="">
+						            </div>
+						        </div>
+						        <div class="form-group">
+						            <label class="control-label col-md-3">密码   <span class="required">*</span></label>
+						            <div class="col-md-6">
+						                <input type="password" class="form-control required" id="password" minlength="6" name="password" value="">
+						            </div>
+						        </div>
+						        <div class="form-group">
+						            <label class="control-label col-md-3">确认密码   <span class="required">*</span></label>
+						            <div class="col-md-6">
+						                <input type="password" class="form-control required" equalTo="#password" name="repassword" value="">
+						            </div>
+						        </div>
+						        <div class="form-group">
+						            <label class="control-label col-md-3">邮箱   <span class="required">*</span></label>
+						            <div class="col-md-6">
+						                <input type="text" class="form-control email required" name="email" value="">
+						            </div>
+						        </div>
+							</div>
+							<div class="form-actionsc fluid">
+								<div class="col-md-offset-3 col-md-9">
+									<button type="submit" class="btn green"><i class="fa fa-save"></i> 保存</button>
+									<a href="{:U('User/index')}" class="btn default"><i class="fa fa-chevron-left"></i> 返回</a>
+								</div>
+							</div>
+						</form>
+						<!-- END FORM-->
+					</div>
+				</div>
+				<!-- END VALIDATION STATES-->
+			</div>
+		</div>
+    </div>
+  </div>
+  <!-- END CONTENT --> 
+</div>
+<script type="text/javascript">
+	$(function(){
+		 $.e_validate.init('.form-horizontal',{});
+	});
+</script>
+</body>
+</html>

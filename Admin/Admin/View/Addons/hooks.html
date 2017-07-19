@@ -1,0 +1,58 @@
+<include file="Public:header"/>
+<div class="page-container"> 
+  <!-- BEGIN SIDEBAR --> 
+  <include file="Public:sidebar" /> 
+  <!-- END SIDEBAR --> 
+  <!-- BEGIN CONTENT -->
+  <div class="page-content-wrapper">
+    <div class="page-content"> 
+      <!-- BEGIN PAGE HEADER-->
+      <div class="row">
+        <div class="col-md-12"> 
+          <!-- BEGIN PAGE TITLE & BREADCRUMB-->
+          <h3 class="page-title"> 钩子管理 </h3>
+          <ul class="page-breadcrumb breadcrumb">
+            <li> <a href="javascript:void(0);"> 扩展 </a> <i class="fa fa-angle-right"></i> </li>
+            <li> 钩子管理 </li>
+          </ul>
+          <!-- END PAGE TITLE & BREADCRUMB--> 
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12">
+          <div class="portlet">
+            <div class="portlet-body">
+              <div class="table-container">
+                <div class="table-actions-wrapper"> <span> </span> <a  class="btn btn-sm blue add-btn" href="{:U('Addons/addhook')}"><i class="fa fa-plus"></i> 新增钩子 </a> </div>
+                <table class="table table-bordered table-striped table-hover" id="datatable">
+                  <thead>
+                    <tr class="heading" role="row">
+                      <th width="100px">ID</th>
+                      <th width="200px">名称</th>
+                      <th>描述</th>
+                      <th width="80px">类型</th>
+                      <th width="110px">操作</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- END CONTENT --> 
+  <script type="text/javascript">
+		$(function(){
+			datatable_init({
+				src: $("#datatable"),
+				sAjaxSource: "{:U('Addons/hooksList')}",
+	            aoColumns:[{bSortable:false},{bSortable:false},{bSortable:false},{bSortable:false},{bSortable:false}],
+			});
+		});
+	</script> 
+</div>
+</body></html>

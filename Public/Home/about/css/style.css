@@ -1,0 +1,212 @@
+.classify:after{
+	content: ' ';
+	width: 1px;
+	height: 100%;
+	position: absolute;
+	left: 50%;
+	background: #E6E6E6;
+	top: 0;
+}
+.classify-box{
+	position: relative;
+}
+.classify li{
+	width: 50%;
+	padding: 2em 0;
+	border-bottom: 1px solid #E6E6E6;
+	float: left;
+}
+.classify li h2{
+	color: #666;
+	text-align: center;
+}
+.classify li .icon{
+	width: 5em;
+	height: 3em;
+	display: block;
+	margin: 0 auto;
+	margin-bottom: 0.8em;
+}
+.icon img{
+	width: 100%;
+	height: 100%;
+}
+.copyright{
+	padding: 1em 0;
+}
+.copyright p{
+	color: #CCCCCC;
+	text-align: center;
+	margin-bottom: 0.2em;
+}
+.introduce-text{
+	padding: 0.8em 3%;
+}
+.introduce-text p:last-child{
+	margin-bottom: 0;
+}
+.introduce-text p{
+	color: #666;
+	font-size: 0.9em;
+	margin-bottom: 0.8em;
+	line-height: 1.5;
+}
+.introduce-img{
+	width: 100%;
+	height: 11em;
+	overflow: hidden;
+}
+.introduce-img img{
+	width: 100%;
+	height: 100%;
+}
+.address{
+	width: 92%;
+	background: #fff;
+	border-radius: 10px;
+	box-shadow: 0px 8px 10px #ccc;
+	position: absolute;
+	bottom: -55px;
+	left: 50%;
+	margin-left: -46%;
+	padding: 1em 5%;
+}
+.map-img{
+	width: 100%;
+	height: 18em;
+	position: relative;
+}
+.map-img img,.remember-img img,.tit-img img,.market-img img,.drug-img img{
+	width: 100%;
+	height: 100%;
+}
+.address li:last-child{
+	margin-bottom: 0;
+}
+.address li{
+	margin-bottom: 0.2em;
+}
+.address li label{
+	color: #999999;
+	font-size: 0.9em;
+}
+.address li span{
+	color: #333333;
+	font-size: 0.9em;
+	width: 180px;
+	overflow: hidden;
+}
+.remember,.drug{
+	padding: 0 3%;
+}
+.remember-list,.drug-list{
+	padding: 0.8em 0;
+	border-bottom: 1px solid #E6E6E6;
+	margin-left: 7em;
+}
+.remember-img,.drug-img{
+	width: 6em;
+	height: 6em;
+	overflow: hidden;
+	margin-top: 0.8em;
+}
+.remember-text h2{
+	color: #4BA6B5;
+	height: 21px;
+	margin: 0.3em 0;
+	margin-bottom: 0.2em;
+	overflow: hidden;
+	text-overflow:ellipsis;
+	white-space: nowrap;
+}
+.remember-text span{
+	margin: 0.6em 0;
+	display: block;
+}
+.remember-text span,.remember-text p{
+	color: #999;
+	font-size: 0.8em;
+}
+.remember-text p{
+	height: 34px;
+	display: -webkit-box;
+	-webkit-box-orient: vertical;
+	-webkit-line-clamp: 2;
+	overflow: hidden;
+	line-height: 1.5;
+}
+.tit-img{
+	width: 3em;
+	height: 3em;
+	overflow: hidden;
+	margin-right: 0.5em;
+}
+.market-title{
+	padding: 0.8em 3%;
+	border-bottom: 1px solid #E6E6E6;
+}
+.market-title p{
+	color: #999;
+	font-size: 0.8em;
+	margin-top: 0.6em;
+}
+.market-title h2{
+	font-size: 1.1em;
+	color: #333;
+	height: 24px;
+	overflow: hidden;
+	text-overflow:ellipsis;
+	white-space: nowrap;
+}
+.market-text{
+	padding: 0.8em 3%;
+}
+.market-text p{
+	color: #666;
+	font-size: 0.8em;
+	line-height: 1.6;
+	margin-bottom: 1em;
+}
+.market-text p:last-child{
+	margin-bottom: 0;
+}
+.market-img{
+	width: 100%;
+	height: 12em;
+	overflow: hidden;
+}
+.drug-text p{
+	color: #666666;
+	font-size: 0.9em;
+	height: 19px;
+	overflow: hidden;
+	text-overflow:ellipsis;
+	white-space: nowrap;
+}
+.drug-text h2{
+	color: #333;
+	margin-bottom: 0.6em;
+}
+
+
+
+
+.market{
+	border-bottom: 1px solid #E6E6E6;
+}
+.swiper-slide{
+	text-align: center;
+}
+.swiper-slide.active{
+	color: #4BA6B5;
+	border-bottom: 2px solid #4BA6B5; 
+}
+#header {
+	width: 100%;
+	overflow: hidden;
+}
+#header .swiper-slide {
+	height:2.7em;
+	line-height:2.7em;
+	    font-size: 16px;
+}

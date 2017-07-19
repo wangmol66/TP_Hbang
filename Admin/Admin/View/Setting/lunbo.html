@@ -1,0 +1,158 @@
+<include file="Public:header"/>
+<div class="page-container"> 
+  <!-- BEGIN SIDEBAR --> 
+  <include file="Public:sidebar" /> 
+  <!-- END SIDEBAR --> 
+  <!-- BEGIN CONTENT -->
+  <div class="page-content-wrapper">
+    <div class="page-content"> 
+      <!-- BEGIN PAGE HEADER-->
+      <div class="row">
+        <div class="col-md-12"> 
+          <!-- BEGIN PAGE TITLE & BREADCRUMB-->
+          <h3 class="page-title"> {$meta_title}  </h3>
+          <ul class="page-breadcrumb breadcrumb">
+            <li> <a href="javascript:void(0);"> {$title}</a> <i class="fa fa-angle-right"></i> </li>
+            <li> {$meta_title} </li>
+          </ul>
+          <!-- END PAGE TITLE & BREADCRUMB--> 
+        </div>
+      </div>
+			<div class="note note-success">
+				<p>发布直播:请点击 <a href="">微吼直播</a></p>
+			</div>
+			<div class="row">
+        <div class="col-md-12">
+          <div class="portlet">
+            <div class="portlet-body">
+              <div class="table-container">
+                <div class="table-actions-wrapper"> <span> </span> <a  class="btn btn-sm blue add" href="JavaScript:"><i class="fa fa-plus"></i> 新增 </a> </div>
+                <table class="table table-bordered table-striped table-hover" id="datatable">
+                  <thead>
+                    <tr class="heading" role="row">
+	                    <th width="20px">ID</th>
+	                    <th >轮播图</th>
+	                    <th width="120px">跳转</th>
+	                    <th width="100px">添加时间</th>
+	                    <th width="100px">操作</th>
+                    </tr>
+                    <tr role="row" class="filter">
+	                    <th></th>
+	                    <th></th>
+	                    <th></th>
+	                    <th></th>
+	                    <th>
+	                       <div class="btn-group">
+							<a class="btn btn-xs filter-submit btn-default">
+								<i class="fa fa-search"></i> 搜索
+							</a>
+							<button data-toggle="dropdown" class="btn btn-default dropdown-toggle btn-xs " type="button"><i class="fa fa-angle-down"></i></button>
+							<ul role="menu" class="dropdown-menu pull-right">
+								<li>
+									<a href="javascript:void(0);" class="filter-cancel">重置</a>
+								</li>
+							</ul>
+						</div>
+						</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <include file="Public:model" />
+        <script>
+
+            $(function(){
+            	var ue;
+                //增加
+                $('.add').live('click',function () {
+                    var model = $('#myModal');
+                    var obj=Object.create(Editer);
+                    var url = $(this).attr('href');
+
+                    //obj.Ajax(url,function (data) {
+
+                        model.find('#add-address').attr('action',"{:U('saveLunbo')}");
+                        model.find('.modal-title').html("新增轮播");
+                        model.find('.btn-primary').html("立即保存");
+                        model.find('button[type="submit"]').show();
+                        model.find('.modalbody').html('');
+                        model.find('.modalbody').append(obj.Dropify('轮播图：','show_url'));//添加了一个文字编辑器
+                        
+                        $('.show_url').dropify({
+                            messages: {'default': '点击上传图片','replace': '点击图片上传替换图片','remove':'删除图片','error':'Ooops, something wrong appended.'}}
+                        ).on('dropify.beforeClear',function(event, element) {
+
+                            return confirm("Do you really want to delete \"" + element.filename + "\" ?");
+                        });
+                        
+                        model.find('.modalbody').append(obj.input('跳转地址：','url'));
+
+                        model.modal();
+                        App.unblockUI();
+                        $.e_validate.init('#add-address',{modal:model,ignore:''});
+                    //})
+                    return false;
+                })
+
+               $('.edit').live('click',function () {
+                    var model = $('#myModal');
+                    var obj=Object.create(Editer);
+                    var url = $(this).attr('href');
+
+                    obj.Ajax(url,function (data) {
+                    	 model.find('#add-address').attr('action',"{:U('saveLunbo')}");
+                         model.find('.modal-title').html("新增轮播");
+                         model.find('.btn-primary').html("立即保存");
+                         model.find('button[type="submit"]').show();
+                         model.find('.modalbody').html('');
+                         
+                         
+                         model.find('.modalbody').append(obj.input('id：','id',data.id));//添加了一个文字编辑器
+                         model.find('.modalbody').append(obj.Dropify('轮播图：','show_url',data.show_url));//添加了一个文字编辑器
+                         
+                         $('.show_url').dropify({
+                             messages: {'default': '点击上传图片','replace': '点击图片上传替换图片','remove':'删除图片','error':'Ooops, something wrong appended.'}}
+                         ).on('dropify.beforeClear',function(event, element) {
+
+                             return confirm("Do you really want to delete \"" + element.filename + "\" ?");
+                         });
+                         
+                         model.find('.modalbody').append(obj.input('跳转地址：','url',data.url));
+
+                         model.modal();
+                         App.unblockUI();
+                         $.e_validate.init('#add-address',{modal:model,ignore:''});
+                    })
+                    
+                    return false;
+                })
+                
+            });
+
+        </script>
+  <!-- END CONTENT --> 
+  <script type="text/javascript">
+		$(function(){
+			datatable_init({
+				src: $("#datatable"),
+				sAjaxSource: "{:U('lunboList')}",
+	            aoColumns:[
+	            	{bSortable:false},
+	            	{bSortable:false},
+	            	{bSortable:false},
+	            	{bSortable:false},
+	            	{bSortable:false}],
+			});
+		});
+	</script> 
+</div>
+</body></html>

@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, minimum-scale=1, maximum-scale=1">
+		<title></title>
+		<link rel="stylesheet" href="__HOME__/css/swiper.min.css" />
+		<script type="text/javascript" src="__HOME__/js/jquery-1.9.1.min.js"></script>
+		<script type="text/javascript" src="__HOME__/js/swiper.min.js"></script>
+		<link rel="stylesheet" type="text/css" href="__HOME__/css/base.css"/>
+		<link rel="stylesheet" href="__HOME__/css/main.css" />
+		<link rel="stylesheet" type="text/css" href="__HOME__/css/animate.css"/>
+				<style>
+		.row li .row-wz li h3 {
+		    height: 1.3em;
+		}
+		</style>
+		<script src="__SLIKE__/layer.mobile-v2.0/layer_mobile/layer.js"></script> <!--Layer提示消息-->
+		<link rel="stylesheet" type="text/css" href="__PUBLIC__/tongyong/style/tongyong.css">
+		<style type="text/css">
+		.warps-textCons {
+			text-align: center;
+			padding: 0em 0 1em 0;
+		}
+		
+		.warps-textCons img {
+			margin-top: 2em;
+			width: 35%;
+		}
+		
+		.warps-textCons h1 {
+			font-size: 0.9em;
+		}
+		
+		.row-img img {
+		    max-height: 100%;
+		    max-width: 100%;
+		    width: auto;
+		    height: auto;
+		}
+		</style>
+	</head>
+
+	<body>
+
+
+
+
+
+		<div class="content">
+		<include file="nav"/>
+			<div class="mid-box">
+				<volist name="info" id="vo">
+				<ul class="row">
+					<li class="pr">
+						<div class="row-img" onclick="msg({$vo.status},{$vo.id_b})">
+							<img src="{$vo['img'][0]}" />
+						</div>
+						<ul class="row-wz" onclick="msg({$vo.status},{$vo.id_b})">
+							<li>
+								<h3>{$vo.title}</h3>
+							</li>
+							<li>
+								<span>{$vo.addtime_1}</span>
+							</li>
+							<li>
+								<p>{$vo.content}</p>
+							</li>
+							<li>
+								<ul class="lib-dw">
+									<li>
+										<a href="javascript:"><i class="tu"><img src="__HOME__/img/pic6.png"/></i><span>{$vo.good}</span></a>
+									</li>
+									<li>
+										<a href="javascript:"><i class="tu"><img src="__HOME__/img/pic8.png"/></i><span>{$vo.view}</span></a>
+									</li>
+									<li>
+										<a href="javascript:"><i class="tu"><img src="__HOME__/img/pic7.png"/></i><span>{$vo.reply}</span></a>
+									</li>
+									<h6></h6>
+								</ul>
+							</li>
+						</ul>
+						<h6></h6>
+					</li>
+				</ul>
+				</volist>
+				<?php if(!$info){?>
+					<section>
+					    <div id="body-container">
+					        <div class="warps-textCons">
+					            <img src="__PUBLIC__/tongyong/images/png/11.png"/>
+					            <h1>暂无相关信息</h1>
+					        </div>
+					    </div>
+					</section>
+				
+				<?php }?>
+			</div>
+			</div>
+
+		<script>
+			var swiper = new Swiper('.contorl-wz', {
+				slidesPerView: 3,
+				paginationClickable: true,
+				 spaceBetween: 10
+			});
+			$(function(){
+				$(".dianzan").click(function(){
+					if($(this).hasClass("pulse")){
+						$(this).removeClass("pulse");
+					}else{
+						$(this).addClass("animated pulse");
+					}
+				})
+			})
+			
+			function msg(status,id){
+				if(status){
+					window.location="{:U('Answer/info/id/"+id+"')}";
+				}else{
+			       	//提示
+      			    layer.open({
+      			       content: '已失效'
+      			       ,skin: 'msg'
+      			       ,time: 2 //2秒后自动关闭
+      			    });
+			       	return false;
+				}
+			}
+		</script>
+
+	</body>
+
+</html>

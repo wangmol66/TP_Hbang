@@ -1,0 +1,45 @@
+<div class="page-sidebar-wrapper">
+	<div class="page-sidebar navbar-collapse collapse">
+		<ul class="page-sidebar-menu" data-auto-scroll="true" data-slide-speed="200">
+			<volist name="__MENU__.main" id="menu">
+				<?php 
+					
+					$active = false;
+					if($menu['url'] == $__sidebar) $active = true;
+					if( ! $active && ! empty($menu['child'])){
+						foreach($menu['child'] as $v){
+							if($v['url'] == $__sidebar){
+								$active = true;
+								break;
+							}
+						}
+					}
+				?>
+				<li <?php if($active):?>class="active"<?php endif ?>>
+				<a href="{$menu.url|U}">
+					<i class="{$menu.menu_class}"></i>
+					<span class="title">
+						{$menu.title}
+					</span>
+					<?php if( ! empty($menu['child'])):?>
+					<span class="arrow <?php if($active):?>open<?php endif; ?>">
+					</span>
+					<?php endif;?>
+				</a>
+				<?php if( ! empty($menu['child'])):?>
+				<ul class="sub-menu">
+				   <volist name="menu.child" id="menus">
+				   		<?php if($menus['url'] == $__sidebar) $active = true; else $active = false; ?>
+						<li <?php if($active):?>class="active"<?php endif ?>>
+							<a href="{$menus.url|U}">
+								{$menus.title}
+							</a>
+						</li>
+				   </volist>
+				</ul>
+				<?php endif;?>
+			</li>
+	       </volist>
+		</ul>
+	</div>
+</div>

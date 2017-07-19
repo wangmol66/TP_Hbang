@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, minimum-scale=1, maximum-scale=1">
+		<title></title>
+		<link rel="stylesheet" href="__HOME__/css/swiper.min.css" />
+		<script type="text/javascript" src="__HOME__/js/jquery-1.9.1.min.js"></script>
+		<script type="text/javascript" src="__HOME__/js/swiper.min.js"></script>
+		<link rel="stylesheet" href="__HOME__/css/main.css" />
+		<link rel="stylesheet" type="text/css" href="__HOME__/css/base.css"/>
+		
+    	<link rel="stylesheet" type="text/css" href="__PUBLIC__/tongyong/style/tongyong.css">
+    	<script src="__SLIKE__/layer.mobile-v2.0/layer_mobile/layer.js"></script> <!--Layer提示消息-->
+    			<style type="text/css">
+			.warps-textCons {
+			    text-align: center;
+			    padding: 0em 0 1em 0;
+			}
+			.warps-textCons img {
+			    width: 35%;
+			}
+			.warps-textCons h1 {
+			    font-size: 0.9em;
+			}
+		</style>
+	</head>
+
+	<body>
+
+		
+		<div class="content">
+			<div class="chaxun">
+				<div class="chaxun-top">
+					<a href="">
+						请点击月份查询会讯
+					</a>
+				</div>
+				<ul class="month">
+					<li class="change" data-id="1">
+						<a href="javascript:"><b>January</b>01</a>
+					</li>
+					<li data-id="2">
+						<a href="javascript:"><b>February</b>02</a>
+					</li>
+					<li data-id="3">
+						<a href="javascript:"><b>March</b>03</a>
+					</li>
+					<li data-id="4">
+						<a href="javascript:"><b>April</b>04</a>
+					</li>
+					<li data-id="5">
+						<a href="javascript:"><b>May</b>05</a>
+					</li>
+					<li data-id="6">
+						<a href="javascript:"><b>June</b>06</a>
+					</li>
+					<li data-id="7">
+						<a href="javascript:"><b>July</b>07</a>
+					</li>
+					<li data-id="8">
+						<a href="javascript:"><b>August</b>08</a>
+					</li>
+					<li data-id="9">
+						<a href="javascript:"><b>September</b>09</a>
+					</li>
+					<li data-id="10">
+						<a href="javascript:"><b>October</b>10</a>
+					</li>
+					<li data-id="11">
+						<a href="javascript:"><b>November</b>11</a>
+					</li>
+					<li data-id="12">
+						<a href="javascript:"><b>December</b>12</a>
+					</li>
+					<h6></h6>
+				</ul>
+				
+			</div>
+			<div class="floor2">
+				<h3>1月会讯</h3>
+			</div>
+			<div class="content-text">
+				
+			</div>
+		</div>
+		
+		<include file="Public:news"/>		
+		<script>
+			get(1);
+		
+			var swiper = new Swiper('.swiper-container', {
+				pagination: '.swiper-pagination',
+				paginationClickable: true
+			});
+			
+			$(function(){
+				$(".month li").click(function(){
+					var month = $(this).attr('data-id');
+					console.log(month);
+					$(this).addClass("change").siblings().removeClass("change");
+					get(month);
+					
+				})
+			}) 
+			
+			function get(month){
+				//提示
+  			    layer.open({
+  			       content: '加载中'
+  			       ,skin: 'msg'
+  			       ,time: 1 //2秒后自动关闭
+  			    });
+				$.post("{:U('News/ajaxNews')}",{month:month},function(data){
+					data = eval(data);
+					var length = data.length;
+					
+					$('.content-text').html('');
+					for(var i=0;i<length;i++){
+						var html = puthtml(data[i]);
+						$('.content-text').append(html);
+					}
+					
+					if(length == 0){
+						$('.content-text').append(nullhtml());
+					}
+					
+					$('.floor2 h3').text(month+'月会讯');
+				})
+			}
+			
+			function puthtml(data){
+				var html = '<ul class="huixun">'
+					html +='<a href="javascript:">'
+					html +='<li onclick="location=\'{:U('News/info')}&id='+data.id+'\'">'
+					html +='<div class="tu">'
+					html +='<img src="'+data.show_url+'"/>'
+					html +='</div>'
+					html +='<div class="text">'
+					html +='<h3>'+data.title+'</h3>'
+					html +='</div>'
+					html +='<h6></h6>'
+					html +='</li>'
+					html +='</a>'
+					html +='</ul>'
+					
+					return html;
+			}
+			
+			function nullhtml(){
+				var html ='<section>'
+					html +=	   ' <div id="body-container">'
+						html +=	        '<div class="warps-textCons">'
+							html +=	           ' <img src="__PUBLIC__/tongyong/images/png/11.png"/>'
+								html +=	           ' <h1>暂无相关信息</h1>'
+										html +=	        '</div>'
+											html +=	    '</div>'
+												html +=	'</section>'
+						
+						return html;
+			}
+		</script>
+
+	</body>
+
+</html>

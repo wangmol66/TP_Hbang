@@ -1,0 +1,137 @@
+<include file="Public:header" />
+<div class="page-container">
+	<!-- BEGIN SIDEBAR -->
+	<include file="Public:sidebar" />
+	<!-- END SIDEBAR -->
+	<!-- BEGIN CONTENT -->
+	<div class="page-content-wrapper">
+		<div class="page-content">
+		
+			<!-- BEGIN PAGE HEADER-->
+			<style>
+				 img{
+				 	max-width: 100%;
+				 }
+				 </style>
+			<div class="row">
+				<div class="col-md-12">
+					<!-- BEGIN PAGE TITLE & BREADCRUMB-->
+					<h3 class="page-title">{$title}</h3>
+					<ul class="page-breadcrumb breadcrumb">
+						<li><a href="javascript:void(0);"> 新闻列表 </a> <i
+							class="fa fa-angle-right"></i></li>
+						<li>{$title}</li>
+						<li class="btn-group">
+							<a class="btn green recharge-btn" style="color:#fff" href="{:U('Bangnews/edit/id/'.$info['id'])}">
+								<i class="fa fa-edit"></i> 编辑
+							</a>
+							<a class="btn default return ml_5" style="margin-left: 5px;" href="{:U('index')}">
+								<i class="fa fa-chevron-left"></i> 返回
+							</a>
+						</li>
+					</ul>
+					<!-- END PAGE TITLE & BREADCRUMB-->
+				</div>
+			</div>
+			<div class="row">
+            <div class="col-md-12">
+                <!-- BEGIN VALIDATION STATES-->
+                <div class="portlet box">
+                    <div class="portlet-body form">
+                        <!-- BEGIN FORM-->
+                        <form action="{:U('save')}" class="form-horizontal" method="post">
+                            <div class="form-body">
+                                <div class="form-group">
+                                    <label class="control-label col-md-3">标题  <span class="required"></span></label>
+                                    <div class="col-md-4">
+                                        <label class="col-md-3 control-label" style="text-align: left;">{$info.title}</label>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-md-3">文章分类  <span class="required">*</span></label>
+                                    <div class="col-md-4">
+                                       <label class="col-md-3 control-label" style="text-align: left;">{$info.type_name}</label>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="control-label col-md-3">封面图   <span class="required">*</span></label>
+                                    <div class="col-md-6">
+           								<label class="col-md-3 control-label" style="text-align: left;"><img style="max-width: 100%;" src="{$info.show_url}"></label>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-md-3">摘要  <span class="required">*</span></label>
+                                    <div class="col-md-4">
+                                       <label class="col-md-8 control-label" style="text-align: left;">{$info.remark}</label>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-md-3">文章内容  <span class="required">*</span></label>
+                                    <div class="col-md-6">
+                                     <label class="col-md-8 control-label" style="text-align: left;">{$info.content}</label>
+                                    </div>
+                                </div>
+                                
+                            </div>
+                            <div class="form-actionsc fluid">
+                                <div class="col-md-offset-3 col-md-9">
+                                    <a href="{:U('index')}" class="btn default"><i class="fa fa-chevron-left"></i> 返回</a>
+                                </div>
+                            </div>
+                        </form>
+                        <!-- END FORM-->
+                    </div>
+                </div>
+                <!-- END VALIDATION STATES-->
+            </div>
+        </div>
+		</div>
+	</div>
+	<!-- END CONTENT -->
+	<script type="text/javascript">
+		$(function(){
+			datatable_init({
+				src: $("#datatable"),
+				sAjaxSource: "{:U('Doctor/getReplyList/id/'.$_GET['id'])}",
+	            aoColumns:[
+	            	{bSortable:false},
+	            	{bSortable:false},
+	            	{bSortable:false},
+	            	{bSortable:false},
+	            	{bSortable:false},
+	            	{bSortable:false},
+	            	{bSortable:false},
+	            	],
+			});
+			
+			$('.select-batch').change(function(){
+                var type = $(this).val();
+                var val=[];
+                var oB = $('.checkable');
+                for(var i = 0;i<oB.length;i++){
+                    if(oB[i].checked){
+                        val.push(oB[i].value);
+                    }
+                }
+                msg=['确定要删除已选数据么？'];
+                console.log(val);
+
+
+                Smelly.confirmAlert("{:U('checkedReply')}",msg[type-1],{val:val,type:type},function(data){
+                    console.log(data);
+                });
+                $(".select-batch option[value='0']").attr("selected", true);//设置选中
+            })
+            
+    		$('.remaks-item').live('focus', function(){
+    			$(this).css('height', '150px');
+    		});
+    		$('.remaks-item').live('blur', function(){
+    			$(this).css('height', '22px');
+    		});
+		});
+	</script>
+</div>
+</body>
+</html>

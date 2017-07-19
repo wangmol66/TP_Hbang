@@ -1,0 +1,100 @@
+<div class="row">
+        <div class="col-sm-1">
+
+        </div>
+        <div class="col-sm-4">
+            <h3>列表</h3>
+            <div id="treeview-selectable" class=""></div>
+        </div>
+        <div class="col-sm-7">
+            <form action="{:U('add')}" id="column-name" id="column-name">
+                <h3>操作</h3>
+                <div >
+                    <!--<h2>Input</h2>-->
+                    <!--<div class="form-group">-->
+                        <!--<label for="input-select-node" class="sr-only">Search Tree:</label>-->
+                        <!--<input type="input" class="form-control" id="input-select-node" placeholder="Identify node..." value="Parent 1">-->
+                    <!--</div>-->
+                    <input  id="edit-input-val" name="column_id" type="hidden"><hr>
+
+                    <input class="form-control input-inline input-medium" name="column_name" id="edit-input-column" placeholder="编辑栏目" type="text">
+                    <a href="{:U('edit')}" class="btn btn-default btn-xs edit-column">
+                        <i class="fa fa-edit"></i>保存</a><small>(点击栏目编辑)</small>
+                    <hr>
+                    <input class="form-control input-inline input-medium" name="column_name" id="add-input-column" placeholder="添加栏目" type="text">
+                    <a href="{:U('add')}" alert-message="确认是否要添加？" class="btn btn-default btn-xs add-column">
+                        <i class="fa fa-edit"></i>添加</a><small>(输入添加栏目-如已选中目录，则添加为二级目录)</small>
+                    <hr><a href="{:U('delete')}" alert-message="确认是否要添加？" class="btn  btn-xs del-column"><i class="fa fa-edit"></i>删除</a><small></small>
+
+                </div>
+
+
+
+            </form>
+        </div>
+</div>
+<script type="text/javascript">
+        $(function () {
+
+            var initSelectableTree = function() {
+                return $('#treeview-selectable').treeview({
+                    data: data,
+                    levels:3,
+                    multiSelect: $('#chk-select-multi').is(':checked'),
+                    onNodeSelected: function(event, node) {
+                        //$('#selectable-output').prepend('<p>' + node.text +node.val +' was selected</p>');
+                        $('#edit-input-column').val(node.text);
+                        $('#edit-input-val').val(node.val);
+                    },
+                    onNodeUnselected: function (event, node) {
+                        //$('#selectable-output').prepend('<p>' + node.text + ' was unselected</p>');
+                        $('#edit-input-column').val('');
+                        $('#edit-input-val').val('');
+                    }
+                });
+            };
+
+        })
+
+        function treeload(val) {
+            $.post("{:U('getList')}",{},function (data) {
+                //console.log(data);
+                var initSelectableTree = function() {
+                    return $('#treeview-selectable').treeview({
+                        data: data,
+                        levels:2,
+                        multiSelect: $('#chk-select-multi').is(':checked'),
+                        onNodeSelected: function(event, node) {
+                            //$('#selectable-output').prepend('<p>' + node.text +node.val +' was selected</p>');
+                            $('#edit-input-column').val(node.text);
+                            $('#edit-input-val').val(node.val);
+                        },
+                        onNodeUnselected: function (event, node) {
+                            //$('#selectable-output').prepend('<p>' + node.text + ' was unselected</p>');
+                            $('#edit-input-column').val('');
+                            $('#edit-input-val').val('');
+                        }
+                    });
+                };
+
+                var $selectableTree = initSelectableTree();
+                var findSelectableNodes = function() {
+                    return $selectableTree.treeview('search', [ val, { ignoreCase: false, exactMatch: false } ]);
+                };
+                $('#input-select-node').on('keyup', function (e) {
+                    selectableNodes = findSelectableNodes();
+                    $('.select-node').prop('disabled', !(selectableNodes.length >= 1));
+                });
+                var selectableNodes = findSelectableNodes();
+            })
+
+
+        }
+        treeload();
+
+//        setTimeout(function () {
+//            tree();
+////            $('#treeview-selectable').treeview("addNode",[1,{node:{text:'新的菜单','val':'111'}}])
+//            alert('1');
+//        },5000);
+</script>

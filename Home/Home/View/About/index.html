@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title>关于华邦</title>
+		<link rel="stylesheet" type="text/css" href="__HOME__/about/css/swiper.min.css" />
+		<link rel="stylesheet" type="text/css" href="__HOME__/about/css/base.css" />
+		<link rel="stylesheet" type="text/css" href="__HOME__/about/css/style.css" />
+		<script type="text/javascript" data-main="__HOME__/about/js/cont" src="__HOME__/about/js/require.js"></script>
+	</head>
+	<body>
+		<div class="swiper-container">
+			<div class="swiper-wrapper">
+				<foreach name="show" item="vo" key="k">
+					<div class="swiper-slide <if condition='$k eq 1'>swiper-slide-active</if>">
+						<a href=""><img src="{$vo.show_path}" width="100%" height="100%" /></a>
+					</div>
+				</foreach>
+			</div>
+			<div class="swiper-pagination swiper-pagination-clickable swiper-pagination-bullets"></div>
+		</div>
+		<div class="classify-box">
+			<ul class="classify">
+				<li>
+					<a href="{:U('jieshao')}">
+						<i class="icon"><img src="__HOME__/about/img/png/pic1.png"/></i>
+						<h2>企业管理</h2>	
+					</a>
+				</li>
+				<li>
+					<a href="{:U('lainxi')}">
+						<i class="icon"><img src="__HOME__/about/img/png/pic2.png"/></i>
+						<h2>联系我们</h2>
+					</a>
+				</li>
+				<li>
+					<a href="{:U('chanpin')}">
+						<i class="icon"><img src="__HOME__/about/img/png/pic3.png"/></i>
+						<h2>华邦产品</h2>
+					</a>
+				</li>
+				<li>
+					<a href="{:U('dajishi')}">
+						<i class="icon"><img src="__HOME__/about/img/png/pic4.png"/></i>
+						<h2>企业大事记</h2>
+					</a>
+				</li>
+				<li>
+					<a href="{:U('yanfa')}">
+						<i class="icon"><img src="__HOME__/about/img/png/pic5.png"/></i>
+						<h2>关于研发</h2>
+					</a>
+				</li>
+				<li>
+					<a href="{:U('xinxi')}">
+						<i class="icon"><img src="__HOME__/about/img/png/pic6.png"/></i>
+						<h2>集团信息</h2>
+					</a>
+				</li>
+				<h6></h6>
+			</ul>
+		</div>
+		<div class="copyright">
+			<p>华邦生命健康股份有限公司</p>
+			<p>版权所有 渝ICP备05003852号</p>
+		</div>
+	</body>
+</html>

@@ -1,0 +1,83 @@
+<include file="Public:header"/>
+<style type="text/css">
+	div .radio-inline:nth-child(2), div .checkbox-inline:nth-child(2) {
+	    margin-left: 10px;
+	}
+	.radio-inline, .checkbox-inline {
+	    padding-left: 0;
+	}
+</style>
+<div class="page-container"> 
+  <!-- BEGIN SIDEBAR --> 
+  <include file="Public:sidebar" /> 
+  <!-- END SIDEBAR --> 
+  <!-- BEGIN CONTENT -->
+  <div class="page-content-wrapper">
+    <div class="page-content"> 
+      <!-- BEGIN PAGE HEADER-->
+      <div class="row">
+        <div class="col-md-12"> 
+          <!-- BEGIN PAGE TITLE & BREADCRUMB-->
+          <h3 class="page-title"> 用户授权 </h3>
+          <ul class="page-breadcrumb breadcrumb">
+          	<li class="btn-group"> <a href="{:U('User/index')}" class="btn default"><i class="fa fa-chevron-left"></i> 返回</a> </li>
+            <li> <a href="javascript:void(0);"> 用户 </a> <i class="fa fa-angle-right"></i> </li>
+            <li> <a href="{:U('Menu/index?pid='.I('pid'))}"> 用户列表 </a> <i class="fa fa-angle-right"></i></li>
+            <li> 授权</li>
+          </ul>
+          <!-- END PAGE TITLE & BREADCRUMB--> 
+        </div>
+      </div>
+      <div class="row">
+				<div class="col-md-12">
+					<!-- BEGIN VALIDATION STATES-->
+					<div class="portlet box">
+						<div class="portlet-body form">
+							<!-- BEGIN FORM-->
+							<form action="{:U('AuthManager/addToGroup')}" class="form-horizontal" method="post">
+								<div class="form-body">
+									<div class="form-group">
+							            <label class="col-md-3 control-label">{$nickname} 所属的用户组列表</label>
+							            <div class="col-md-6">
+								            <div class="checkbox-inline">
+								            	 <volist name="auth_groups" id="vo">
+									                <label class="checkbox-inline" style="padding-top:0px;">
+									                    <input class="auth_groups" type="checkbox" name="group_id[]" value="{$vo.id}">{$vo.title}
+									                </label>
+								            	</volist>
+											</div>
+							            </div>
+							        </div>
+								</div>
+								<div class="form-actionsc fluid">
+									<div class="col-md-offset-3 col-md-9">
+										<input type="hidden" name="uid" value="{:I('uid')}">
+            							<input type="hidden" name="batch" value="true">
+										<button type="submit" class="btn green"><i class="fa fa-save"></i> 保存</button>
+										<a href="{:U('User/index')}" class="btn default"><i class="fa fa-chevron-left"></i> 返回</a>
+									</div>
+								</div>
+							</form>
+							<!-- END FORM-->
+						</div>
+					</div>
+					<!-- END VALIDATION STATES-->
+				</div>
+			</div>
+    </div>
+  </div>
+  <!-- END CONTENT --> 
+</div>
+<script type="text/javascript">
+	$(function(){
+		 $.e_validate.init('.form-horizontal',{});
+		 var group = [{$user_groups}];
+	        $('.auth_groups').each(function(){
+	            if( $.inArray( parseInt(this.value,10),group )>-1 ){
+	                $(this).prop('checked',true).uniform();
+	            }
+	        });
+	});
+</script>
+</body>
+</html>

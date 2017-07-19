@@ -1,0 +1,36 @@
+<html>
+<include file="Public:header"/>
+<link href="__STATIC__/treeview/css/default.css" rel="stylesheet" type="text/css"/>
+
+<body>
+<div class="page-container">
+    <!-- BEGIN SIDEBAR -->
+    <include file="Public:sidebar" />
+    <!-- END SIDEBAR -->
+    <!-- BEGIN CONTENT -->
+    <div class="page-content-wrapper">
+        <div class="page-content">
+            <div class="alert alert-warning" style="display: none">
+                <strong>警告!</strong>你的操作是不允许的！
+            </div>
+            <!-- BEGIN PAGE HEADER-->
+            <div class="row">
+                <div class="col-md-12">
+                    <!-- BEGIN PAGE TITLE & BREADCRUMB-->
+                    <h3 class="page-title">{$meta_title}</h3>
+                    <ul class="page-breadcrumb breadcrumb">
+                        <li> <a href="javascript:void(0);" style="font-size: 13px;"> {$meta_title_top} </a> <i class="fa fa-angle-right"></i> </li>
+                        <li style="font-size: 13px;">{$meta_title}</li>
+                    </ul>
+                    <!-- END PAGE TITLE & BREADCRUMB-->
+                </div>
+            </div>
+            <!--BEGIN BODY-->
+            <include file="Public:model" />
+            <include file="Public:NesTable" title="分类" menu="产品分类" tup="0"/>
+            <!--END BODY-->
+        </div>
+    </div>
+</div>
+</body>
+</html>

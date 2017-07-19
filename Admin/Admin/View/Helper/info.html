@@ -1,0 +1,272 @@
+<include file="Public:header" />
+<style>
+.control-label {
+	text-align: right;
+	margin-top: 7px;
+}
+</style>
+<div class="page-container">
+	<!-- BEGIN SIDEBAR -->
+	<include file="Public:sidebar" />
+	<!-- END SIDEBAR -->
+	<!-- BEGIN CONTENT -->
+	<div class="page-content-wrapper">
+		<div class="page-content">
+			<!-- BEGIN PAGE HEADER-->
+			<div class="row">
+				<div class="col-md-12">
+					<!-- BEGIN PAGE TITLE & BREADCRUMB-->
+					<h3 class="page-title">{$title}</h3>
+					<ul class="page-breadcrumb breadcrumb">
+						<li><a href="javascript:void(0);"> 会议助手 </a> <i
+							class="fa fa-angle-right"></i></li>
+						<li>{$title}</li>
+						<li class="btn-group">
+						<a class="btn default return ml_5" style="margin-left: 5px;"
+							href="{:U('index')}"> <i class="fa fa-chevron-left"></i> 返回
+						</a>
+						</li>
+					</ul>
+					<!-- END PAGE TITLE & BREADCRUMB-->
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<div class="row">
+						<div class="col-md-12 profile-info">
+							<div class="row">
+								<div class="col-md-12">
+									<div class="form-body">
+									<div class="col-md-6">
+										<!-- <h3 class="margin-bottom-20">{$info.title}</h3> -->
+											<h4 class="form-section">基本信息</h4>
+											<div class="row">
+												<div class="col-md-12">
+													<div class="form-group">
+														<label class="control-label col-md-3">标题:</label>
+														<div class="col-md-9">
+															<p class="form-control-static">{$info.title}</p>
+														</div>
+													</div>
+												</div>
+												<!--/span-->
+												
+												<!--/span-->
+											</div>
+											<!--/row-->
+											<div class="row">
+												<div class="col-md-12">
+													<div class="form-group">
+														<label class="control-label col-md-3">发起人:</label>
+														<div class="col-md-9">
+															<p class="form-control-static">{$info.nickname}</p>
+														</div>
+													</div>
+												</div>
+												<!--/span-->
+												<!--/span-->
+											</div>
+											<!--/row-->
+											<div class="row">
+												<div class="col-md-12">
+													<div class="form-group">
+														<label class="control-label col-md-3">地点:</label>
+														<div class="col-md-9">
+															<p class="form-control-static">{$info.address}</p>
+														</div>
+													</div>
+												</div>
+												<!--/span-->
+												<!--/span-->
+											</div>
+											<!--/row-->
+											<div class="row">
+												<div class="col-md-12">
+													<div class="form-group">
+														<label class="control-label col-md-3">会议内容:</label>
+														<div class="col-md-9">
+															<p class="form-control-static">{$info.content}</p>
+														</div>
+													</div>
+												</div>
+												<!--/span-->
+												<!--/span-->
+											</div>
+										</div>
+										<!--/row-->
+										<div class="col-md-6">
+											<if condition="$info['is_question'] eq 1">
+											<h4 class="form-section">奖励信息</h4>
+											<div class="row">
+												<div class="col-md-12">
+													<div class="form-group">
+														<label class="control-label col-md-3">推广问题:</label>
+														<div class="col-md-9">
+															<p class="form-control-static">{$info.question}</p>
+														</div>
+													</div>
+												</div>
+											</div>
+											<div class="row">
+												<div class="col-md-12">
+													<div class="form-group">
+														<label class="control-label col-md-3">选项{$k}:</label>
+														<div class="col-md-9">
+															<volist name="info['answer']" id="vo" key="k">
+															<p class="form-control-static">{$k}.{$vo}</p>
+															</volist>
+														</div>
+													</div>
+												</div>
+												<!--/span-->
+												<!--/span-->
+											</div>
+	
+											<!--/row-->
+											<div class="row">
+												<div class="col-md-12">
+													<div class="form-group">
+														<label class="control-label col-md-3">正确答案:</label>
+														<div class="col-md-9">
+															<p class="form-control-static">
+																<volist name="info['true']" id="vo" key="k">
+																{$vo+1}, </volist>
+															</p>
+														</div>
+													</div>
+												</div>
+												<!--/span-->
+												<!--/span-->
+											</div>
+											<div class="row">
+												<div class="col-md-12">
+													<div class="form-group">
+														<label class="control-label col-md-3">奖励数量:</label>
+														<div class="col-md-9">
+															<p class="form-control-static">{$info.prize}</p>
+														</div>
+													</div>
+												</div>
+												<!--/span-->
+												<!--/span-->
+											</div>
+											</if>
+										</div>
+									</div>
+								</div>
+								<hr>
+							</div>
+						</div>
+						<!--end col-md-8-->
+						<div class="col-md-3">
+							<div class="portlet sale-summary">
+								<div class="portlet-body">
+									<ul class="list-unstyled">
+										<!--  <li>
+                                <span class="sale-info">
+                                    总库存
+                                </span>
+                                <span class="sale-num">
+                                     0
+                                </span>
+                            </li>
+                            -->
+									</ul>
+								</div>
+							</div>
+						</div>
+						<!--end col-md-4-->
+					</div>
+					<!--end row-->
+					<div class="tabbable tabbable-custom tabbable-custom-profile">
+						<ul class="nav nav-tabs">
+							<li class="active"><a href="#tab_2" data-toggle="tab">参加人员</a></li>
+						</ul>
+						<include file="Public:model" />
+						<div class="tab-content">
+							<!--tab-pane-->
+							<div class="tab-pane active" id="tab_2">
+								<div class="portlet-body">
+									<div class="portlet">
+										<div class="portlet-body" style="margin-top: 10px;">
+											<div class="table-container">
+												<div class="table-actions-wrapper">
+													<span> </span> <select
+														class="form-control input-inline input-small input-sm select-batch">
+														<option value="0">批量操作</option>
+														<option value="1">删除</option>
+													</select>
+
+												</div>
+												<table class="table table-bordered table-hover"
+													id="datatable" style="font-size: 13px">
+													<thead>
+														<tr role="row" class="heading">
+															<th width="46px" sort="false"><input
+																class="group-checkable" type="checkbox"></th>
+															<th width="60px" sort="false" sort="false">头像</th>
+															<th desc="true">用户名</th>
+															<th width="60px">加入时间</th>
+															<th width="150px" sort="false">是否中奖</th>
+														</tr>
+													</thead>
+													<tbody>
+													</tbody>
+												</table>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<!--tab-pane-->
+						</div>
+					</div>
+				</div>
+			</div>
+
+		</div>
+	</div>
+	<!-- END CONTENT -->
+	<script type="text/javascript">
+		$(function() {
+			datatable_init({
+				src : $("#datatable"),
+				sAjaxSource : "{:U('Helper/getHelperList/id/'.$_GET['id'])}",
+				aoColumns : [ {
+					bSortable : false
+				}, {
+					bSortable : false
+				}, {
+					bSortable : false
+				}, {
+					bSortable : false
+				}, {
+					bSortable : false
+				}, ],
+			});
+
+			$('.select-batch').change(function() {
+				var type = $(this).val();
+				var val = [];
+				var oB = $('.checkable');
+				for (var i = 0; i < oB.length; i++) {
+					if (oB[i].checked) {
+						val.push(oB[i].value);
+					}
+				}
+				msg = [ '确定要删除已选用户么？' ];
+				console.log(val);
+
+				Smelly.confirmAlert("{:U('member/checked')}", msg[type - 1], {
+					val : val,
+					type : type
+				}, function(data) {
+					console.log(data);
+				});
+
+			})
+		});
+	</script>
+</div>
+</body>
+</html>

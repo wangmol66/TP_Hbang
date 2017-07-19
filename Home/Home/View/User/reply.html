@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, minimum-scale=1, maximum-scale=1">
+		<title></title>
+		<link rel="stylesheet" href="__HOME__/css/swiper.min.css" />
+		<script type="text/javascript" src="__HOME__/js/jquery-1.9.1.min.js"></script>
+		<script type="text/javascript" src="__HOME__/js/swiper.min.js"></script>
+		<link rel="stylesheet" type="text/css" href="__HOME__/css/base.css" />
+		<link rel="stylesheet" href="__HOME__/css/main.css" />
+		<link rel="stylesheet" type="text/css" href="__HOME__/css/animate.css" />
+				<script src="__SLIKE__/layer.mobile-v2.0/layer_mobile/layer.js"></script> <!--Layer提示消息-->
+		<title></title>
+		<style>
+			.reply h2{
+				padding: 0.5em 3%;
+				font-size: 1em;
+			}
+			.reply textarea{
+				width: 100%;
+				height: 7em;
+				background: #fff;
+				border: 0;
+				padding: 2% 3%;
+				font-size: 0.8em;
+			}
+			.reply .reply-btn{
+				display: block;
+				width: 95%;
+				height: 3em;
+				background: #1FC3A9;
+				color: #fff;
+				border: 0;
+				margin: 2em auto;
+				border-radius: 5px;
+				font-size: 1em;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="reply">
+			<h2>{$info.title}</h2>
+			<textarea placeholder="说点什么吧" class="tank"></textarea>
+			<button class="reply-btn">
+				提交
+			</button>
+		</div>
+		<script>
+		$(function(){
+			$(".reply-btn").click(function(){
+				var type = "{$_GET['type']}"
+				var text = $(".tank").val();
+				var id = "{$_GET['id']}"
+				var prid = "{$_GET['rid']}"
+				if(text == ''){
+					//提示
+      			    layer.open({
+      			       content: '回复内容不能为空'
+      			       ,skin: 'msg'
+      			       ,time: 2 //2秒后自动关闭
+      			    });
+					return 0;
+				}
+		
+				$.post("{:U('"+type+"/reply')}",{id:id,text:text,prid:prid},function(data){
+					if(data.status){
+						//提示
+	      			    layer.open({
+	      			       content: data.info
+	      			       ,skin: 'msg'
+	      			       ,time: 2 //2秒后自动关闭
+	      			    });
+						
+	      			  window.location.href="{:U('"+type+"/info/id/"+id+"')}";
+					}
+				})
+				
+			})
+		})
+		</script>
+	</body>
+</html>

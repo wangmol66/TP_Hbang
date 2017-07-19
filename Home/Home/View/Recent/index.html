@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, minimum-scale=1, maximum-scale=1">
+		<title></title>
+		<script type="text/javascript" src="__HOME__/js/jquery-1.9.1.min.js" ></script>
+		<link rel="stylesheet" href="__HOME__/css/main.css" />
+		<script src="__SLIKE__/layer.mobile-v2.0/layer_mobile/layer.js"></script> <!--Layer提示消息-->
+				<link rel="stylesheet" type="text/css" href="__PUBLIC__/tongyong/style/tongyong.css">
+		
+		<style type="text/css">
+			.warps-textCons {
+			    text-align: center;
+			    padding: 0em 0 1em 0;
+			}
+			.warps-textCons img {
+			    width: 35%;
+			}
+			.warps-textCons h1 {
+			    font-size: 0.9em;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="user-top">
+			<ul>
+				<li class="l1">
+					<a href="{:U('Index/index')}"><i><img src="__HOME__/img/i3-3.png" width="18" height="18"/></i>
+						<p>正在直播</p>
+					</a>
+				</li>
+				<li>
+					<a href="{:U('recent/past')}"><i><img src="__HOME__/img/i3-4.png" width="18" height="18"/></i>
+						<p>往期回顾</p>
+					</a>
+				</li>
+			</ul>
+		</div>
+		<div class="floor2-i3">
+			<h3>近期直播</h3>
+		</div>
+		<volist name="lists" id="vo" key="k">
+			<if condition="($k) eq $total">
+				<div class="floor4-i3">
+					<div class="imgone">
+						<if condition="$vo.is_thumb eq 1">
+							<img src="{$vo.thumb}"  width="100%" style="max-height: 190px;width:337.5px;height:190px;"/>
+						<else/>
+							<div
+								style="background: #f1f1f1; height: 200px; display: -webkit-box; display: -ms-flexbox; display: -webkit-flex; display: flex; -webkit-box-pack: center; -ms-flex-pack: center; -webkit-justify-content: center; justify-content: center; -webkit-box-align: center; -ms-flex-align: center; -webkit-align-items: center; align-items: center;">
+								<img src="__HOME__/img/22.png" style="width: 35%;" />
+							</div>
+						</if>
+						<div class="guanzhu">
+							<i>
+								<if condition="$vo.isFollow eq 1">
+									<img src="__HOME__/img/ai-white.png"  width="16" height="16" id="ai2"/>		
+								<else/>
+							   		<img src="__HOME__/img/ai-touming.png" width="16" height="16" id="ai1"/>
+								</if>
+							</i>
+							<span id="follow" time="{$vo.start_time}" webinar_id="{$vo.webinar_id}">关注</span>
+						</div>
+					</div>
+					<div class="exp3">
+							<p class="bo1"><a href="http://e.vhall.com/{$vo.webinar_id}">{$vo.subject}</a></h4></p>
+						    <p class="bo2">{$vo.desc}</p>
+						    <p class="bo3">直播时间：{$vo.start_time}</p>
+					 </div>
+				</div>
+			<else/>
+				<div class="floor3-i3">
+					<div class="imgone">
+						<if condition="$vo.is_thumb eq 1">
+							<img src="{$vo.thumb}"  width="100%" style="max-height: 190px;width:337.5px;height:190px;"/>
+						<else/>
+							<div
+								style="background: #f1f1f1; height: 200px; display: -webkit-box; display: -ms-flexbox; display: -webkit-flex; display: flex; -webkit-box-pack: center; -ms-flex-pack: center; -webkit-justify-content: center; justify-content: center; -webkit-box-align: center; -ms-flex-align: center; -webkit-align-items: center; align-items: center;">
+								<img src="__HOME__/img/22.png" style="width: 35%;" />
+							</div>
+						</if>
+						<div class="guanzhu">
+							<i>
+								<if condition="$vo.isFollow eq 1">
+									<img src="__HOME__/img/ai-white.png"  width="16" height="16" id="ai1"/>		
+								<else/>
+							   		<img src="__HOME__/img/ai-touming.png" width="16" height="16" id="ai1"/>
+								</if>				
+							</i>
+							<span id="follow" time="{$vo.start_time}" webinar_id="{$vo.webinar_id}">关注</span>
+						</div>
+					</div>
+					<div class="exp3">
+							<p class="bo1"><a href="http://e.vhall.com/{$vo.webinar_id}">{$vo.subject}</a></h4></p>
+						    <p class="bo2">{$vo.desc}</p>
+						    <p class="bo3">直播时间：{$vo.start_time}</p>
+					 </div>
+					
+				</div>
+			</if>
+		</volist>
+		
+		<?php if(!$lists){?>
+			<section>
+			    <div id="body-container">
+			        <div class="warps-textCons">
+			            <img src="__PUBLIC__/tongyong/images/png/11.png"/>
+			            <h1>暂无近期直播</h1>
+			        </div>
+			    </div>
+			</section>
+		
+		<?php }?>
+		
+		<include file="Public:footer"/>
+		<script>
+			$(function(){
+				$('#follow').click(function(){
+					var _this = $(this);
+					$.ajax({
+						type:"POST",
+						url:"{:U('follow/index')}",
+						data:{id:_this.attr('webinar_id'),time:_this.attr('time')},
+						success:function(data){_this
+							
+							if(data.status){
+								$('#ai1').attr('src','__HOME__/img/ai-white.png');
+							}
+						    //提示
+              			    layer.open({
+              			       content: data.info
+              			       ,skin: 'msg'
+              			       ,time: 2 //2秒后自动关闭
+              			    });
+						}
+					});
+				})
+			})
+		</script>
+		
+	</body>
+</html>

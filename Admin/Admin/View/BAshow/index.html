@@ -1,0 +1,371 @@
+<html>
+<include file="Public:header"/>
+
+<script src="__STATIC__/metronic/scripts/custom/components-editors.js" type="text/javascript"></script>
+
+
+<script type="text/javascript" charset="utf-8" src="SLIKE/Ueditor/ueditor.config.js"></script>
+<script type="text/javascript" charset="utf-8" src="SLIKE/Ueditor/ueditor.all.min.js"> </script>
+<script type="text/javascript" charset="utf-8" src="SLIKE/Ueditor/lang/zh-cn/zh-cn.js"></script>
+
+
+
+
+
+<body>
+<div class="page-container"> 
+  <!-- BEGIN SIDEBAR --> 
+  <include file="Public:sidebar" /> 
+  <!-- END SIDEBAR --> 
+  <!-- BEGIN CONTENT -->
+    <style>
+        .table-scrollable > .table > thead > tr > th, .table-scrollable > .table > tbody > tr > th, .table-scrollable > .table > tfoot > tr > th, .table-scrollable > .table > thead > tr > td, .table-scrollable > .table > tbody > tr > td, .table-scrollable > .table > tfoot > tr > td {
+            white-space: initial;
+        }
+        b, strong {
+            font-weight: 400;
+        }
+        ul{padding: 0}
+        tbody img {
+            display: block;
+            margin: auto;
+        }
+
+        table{
+            border-spacing: inherit;
+            border-collapse:collapse;
+            border-top: 1px solid #e6e6e6;
+            border-left: 1px solid #e6e6e6;
+            border-right: 1px solid #e6e6e6;
+        }
+        table tr{
+            border-bottom: 1px solid #e6e6e6;
+        }
+        table td:not(:last-child){
+            border-right: 1px solid #e6e6e6;
+
+        }
+    </style>
+  <div class="page-content-wrapper">
+    <div class="page-content"> 
+      <!-- BEGIN PAGE HEADER-->
+      <div class="row">
+        <div class="col-md-12"> 
+          <!-- BEGIN PAGE TITLE & BREADCRUMB-->
+          <h3 class="page-title"> {$meta_title}  </h3>
+          <ul class="page-breadcrumb breadcrumb">
+            <li> <a href="javascript:void(0);" style="font-size: 13px">{$meta_title_top}</a> <i class="fa fa-angle-right"></i> </li>
+            <li> {$meta_title} </li>
+          </ul>
+          <!-- END PAGE TITLE & BREADCRUMB--> 
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12">
+          <div class="portlet">
+            <div class="portlet-body">
+              <div class="table-container">
+
+                <div class="table-actions-wrapper"> <span> </span><!--<button class="btn btn-sm green" onclick="location='{:U(\'BAshow/addShows/id/\'.$id)}'" data-toggle="modal"><i class="fa fa-plus"></i>添加文章</button>--><button class="btn btn-sm green add-btn add-goods"  data-toggle="modal"><i class="fa fa-plus"></i>添加文章</button></div>
+                <table class="table table-bordered table-striped table-hover" style="font-size: 1.3px;" id="datatable">
+                  <thead>
+                    <tr class="heading" role="row">
+                        <th width="3%">编号</th>
+                        <th width="10%">段落名称</th>
+                        <th width="12%">段落内容</th>
+                        <th width="4%">排序</th>
+                        <th width="6%">所属文章</th>
+                        <th width="4%">创建时间</th>
+                        <th width="4%">状态</th>
+                        <th width="10%">操作</th>
+                    </tr>
+                    <tr role="row" class="filter">
+                        <th><input type="text" class="form-control form-filter input-sm" name="name"/></th>
+	                    <th>
+                            <select name="sex" class="form-control form-filter select2 input-sm">
+                      		<option value=""><?php echo '所有';?></option>
+                      		<?php foreach ($sex as $k => $v):?>
+                      		<option value="<?php echo $k + 1;?>"><?php echo $v;?></option>
+                      		<?php endforeach;?>
+                            </select>
+                        </th>
+	                    <th></th>
+                        <th></th>
+
+                        <th> <select name="status" class="form-control form-filter select2 input-sm">
+                            <option value=""><?php echo '所有';?></option>
+                            <?php foreach ($status as $k => $v):?>
+                            <option value="<?php echo $k + 1;?>"><?php echo $v;?></option>
+                            <?php endforeach;?>
+                        </select></th>
+                        <th></th>
+	                    <th></th>
+	                    <th>
+	                       <div class="btn-group">
+							<a class="btn btn-xs filter-submit btn-default">
+								<i class="fa fa-search"></i> 搜索
+							</a>
+							<button data-toggle="dropdown" class="btn btn-default dropdown-toggle btn-xs" type="button"><i class="fa fa-angle-down"></i></button>
+							<ul role="menu" class="dropdown-menu pull-right">
+								<li>
+									<a href="javascript:void(0);" class="filter-cancel">重置</a>
+								</li>
+							</ul>
+						</div>
+                    </tr>
+                  </thead>
+                  <tbody>
+                  </tbody>
+                </table>
+                  <div class="form-actions fluid">
+                      <div class="row">
+                          <div class="col-md-5">
+                              <div class=" col-md-9">
+
+                                  <!--<button class="btn green btn-primary btn-lg edit-address"  data-toggle="modal"><i class="fa fa-check"></i>添加地址1</button>-->
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+    <include file="Public:model" />
+    <include file="Public:froala" />
+    <script>
+
+            $(function(){
+            	var ue;
+                //增加
+                $('.edit-goods').live('click',function () {
+                    var model = $('#myModal');
+                    var obj=Object.create(Editer);
+                    var url = $(this).attr('href');
+
+                    obj.Ajax(url,function (data) {
+
+                            model.find('#add-address').attr('action',"{:U('edit')}");
+                            model.find('.modal-title').html("编辑文章-"+data.title);
+                            model.find('.btn-primary').html("保存文章");
+                            model.find('.modalbody').html('');
+                            model.find('.modalbody').append(obj.input('ID：','page_id',data.page_id,false,true));
+                            model.find('.modalbody').append(obj.input('段落标题：','page_name',data.page_name));
+//                            model.find('.modalbody').append(obj.fonteditA('段落内容：','page_content',data.page_content));//添加了一个文字编辑器
+                            model.find('.modalbody').append(obj.input('排序：','page_sequence',data.page_sequence));
+
+                            model.find('.modalbody').append('');
+                            model.find('.modalbody').append(obj.Ueditor2('段落内容：', 'page_content',data.page_content));//添加了一个文字编辑器
+
+                            ue = UE.getEditor('page_content',{
+                            	"zIndex":99999,
+                            	"serverUrl":"{:U('BAshow/upload')}"
+                            	});
+                        	
+                            //model.find('.modalbody').append(obj.radio(['是否已采纳：',['已采纳',1],['未采纳',0]],'is_adopted',data.is_adopted));
+                            model.modal();
+                            App.unblockUI();
+                            $.e_validate.init('#add-address',{modal:model,ignore:''});
+                    })
+                    return false;
+                })
+
+                
+                $('.add-goods').live('click',function () {
+                    var model = $('#myModal');
+                    var obj=Object.create(Editer);
+                    var url = "{:U(getUC)}";
+					
+                    obj.Ajax(url,function (data) {
+                        model.find('#add-address').attr('action', "{:U('add')}");
+                        model.find('.modal-title').html("添加文章");
+                        model.find('.btn-primary').html("立即添加");
+                        model.find('.modalbody').html('');
+                        model.find('.modalbody').append(obj.input('ID：','article_id','{$id}',false,true));
+                        model.find('.modalbody').append(obj.input('段落标题：','page_name',data.page_name));
+//                        model.find('.modalbody').append(obj.fonteditA('段落内容：','page_content',data.page_content));//添加了一个文字编辑器
+                        model.find('.modalbody').append(obj.inputC('排序：','page_sequence',data.page_sequence));
+                        model.find('.modalbody').append(obj.Ueditor2('段落内容：', 'page_content',''));//添加了一个文字编辑器
+                        
+                        ue = UE.getEditor('page_content',{
+                        	"zIndex":99999,
+                        	"serverUrl":"{:U('BAshow/upload')}"
+                        	});
+                        
+                        
+                        model.modal();
+                        App.unblockUI();
+           
+                        $.e_validate.init('#add-address', {modal: model, ignore: ''});
+                    })
+                })
+                
+                
+              
+                	$('#myModal').on('hidden.bs.modal', function () {
+                		ue.destroy();
+                	})
+               
+            });
+
+    </script>
+
+    <script>
+        var __sid = 2;
+        $(function(){
+            var textarea = $("#base64-textarea"),
+                    bluebtns = $("#base64-buttons-container a.blue:not(.kok)"),
+                    btns = $("#base64-buttons-container a.btn:not(.blue)"),
+                    checkboxs = $("#base64-buttons-container span.checkbox"),
+                    imgview = $("#base64-imgview"),
+                    img = $("#base64-img"),
+                    base64swf = $("#base64-swf").get(0);
+
+            btns.eq(0).click(function(){
+                textarea.val("");
+            });
+
+            bluebtns.eq(0).click(function(){
+                textarea.val( base64swf.getBase64( textarea.val() ) );
+            });
+
+            window.__oncopy = function(){
+                alert("复制成功");
+                return textarea.val();
+            };
+
+            checkboxs.click(function(){
+                var index = checkboxs.index(this);
+                if(index == 0 && !checkboxs.eq(0).hasClass("selected") ){
+                    checkboxs.removeClass("selected");
+                }else if( index == 1 && checkboxs.eq(1).hasClass("selected") ){
+                    checkboxs.addClass("selected");
+                }
+                changeData();
+            });
+
+            function changeData(){
+                if( base64Data == "" ){
+                    return;
+                }
+                var data = base64Data;
+                if( checkboxs.eq(0).hasClass("selected") ){
+                    data = "data:image/" + base64Type + ";base64," + data;
+                    if( checkboxs.eq(1).hasClass("selected")){
+                        data = "background-image: url(\"" + data + "\");"
+                    }
+                }
+                textarea.val( data );
+            }
+
+            var base64Data = "", base64Type = "";
+            window.__onbase64 = function(type, data){
+                base64Type = type.slice(1);
+                base64Data = data;
+                changeData();
+                img.attr("src", "data:image/" + type + ";base64," + data);
+                imgview.show(1000);
+            };
+        });
+    </script>
+    </div>
+    <script type="text/javascript">
+        $(function(){
+            var model = $('#add-modal');
+
+            $('.edit-btn').live('click', function(){
+                var url = $(this).attr('href');
+                l_blockUI();
+                $.ajax(url, {
+                    dataType:'json',
+                    type:'post',
+                    error:function(){
+                        show_message({status:0, info:'请求超时'});
+                        App.unblockUI();
+                    },
+                    timeout:60000,
+                    success:function(data,textStatus,jqXHR){
+
+                        if(data.info){
+                            show_message(data);
+                            return;
+                        }
+
+                        model.find('.modal-title').html('编辑信息  - '+data.nickname );
+                        //model.find('.user_id').val(data.user_id);
+                        model.find('.is_admin'+data.is_admin).attr('checked','true');//设置默认状态
+                        model.find('.sex'+data.sex).attr('checked','true');//设置默认状态
+                        //读取部门列表
+                        model.find('.user_section').html(getSection(data.section));
+                        model.find('.has-error').removeClass('has-error').find('.validate_message').remove();
+                        model.find('#pic').removeClass('required');
+                        model.find('.show_message_error').remove();
+                        for(var k in data){
+                            if(k == 'icon'){
+                                model.find('#icn-img').attr('src', data.icon);
+                            }else{
+                                model.find('[name="'+k+'"]').val(data[k]);
+                            }
+                        }
+                        model.find('#pic').val('');
+                        model.modal();
+                        App.unblockUI();
+                    }
+                });
+                return false;
+            });
+            $.e_validate.init('#add-form',{modal:model,ignore:''});
+        });
+
+        function getSection(arr,a) {
+            var str='';
+            for(var i=0;i<arr.length;i++) {
+                if (typeof(arr[i]) == 'object') {
+                    if(typeof(arr[i]['child']) =='object'){
+                        if(arr[i]['section_pid']=='0'){
+                            str+='<option selected="true" value="'+arr[i]['section_id']+'">'+arr[i]['sec_name']+'</option>'+getSection(arr[i]['child'],2);
+                        }else{
+                            str+='<option selected="true" value="'+arr[i]['section_id']+'">'+space(a)+arr[i]['sec_name']+'</option>'+getSection(arr[i]['child'],a+2);
+                        }
+                    }else{
+                        str+='<option selected="true" value="'+arr[i]['section_id']+'">'+space(a)+arr[i]['sec_name']+'</option>';
+                    }
+                }
+            }
+            return str;
+        }
+        function space(a) {
+            var str='';
+            for (var i=0;i<a;i++){
+                str+='　';
+            }
+            return str;
+        }
+
+
+    </script>
+
+
+
+    <!-- END CONTENT -->
+    <!-- END CONTENT -->
+  <script type="text/javascript">
+
+		$(function(){
+
+			datatable_init({
+				src: $("#datatable"),
+				sAjaxSource: "{:U('getList?id='.$id)}",
+	            aoColumns:[{bSortable:false},{bSortable:false},{bSortable:false},{bSortable:false},{bSortable:false},{bSortable:false},{bSortable:false},{bSortable:false}],
+			});
+
+        });
+	</script>
+
+</div>
+
+</body>
+</html>

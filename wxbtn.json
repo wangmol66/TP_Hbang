@@ -1,0 +1,52 @@
+{
+  "button": [
+    {
+           "name":"大咖会客室",
+           "sub_button":[
+           {	
+               "type":"view",
+               "name":"课程直播",
+               "url":"http://dm.deepinfo.cn/hbang/index.php"
+            },
+            {
+               "type":"view",
+               "name":"有问“邦”解答",
+               "url":"http://dm.deepinfo.cn/hbang/index.php?s=/Answer/index.html",
+            },
+            {
+               "type":"view",
+               "name":"往期精彩回顾",
+               "url":"http://dm.deepinfo.cn/hbang/index.php?s=/Review/index.html",
+            }]
+    },
+    {
+      "type": "view",
+      "name": "邦邦好医声",
+      "url":"http://dm.deepinfo.cn/hbang/index.php?s=/Doctor/index.html",
+    },
+    {
+           "name":"邦邦E-CLUB",
+           "sub_button":[
+            {	
+               "type":"view",
+               "name":"拼图大挑战",
+               "url":"http://muyobrand.com/app/h5_20170505/app2.max.html",
+            },
+           	{	
+               "type":"view",
+               "name":"“邦”您看会讯",
+               "url":"http://dm.deepinfo.cn/hbang/index.php?s=/News/index.html",
+            },
+            {
+               "type":"view",
+               "name":"会议助手",
+               "url":"http://dm.deepinfo.cn/hbang/index.php?s=/Helper/index.html",
+            },
+            {
+               "type":"view",
+               "name":"关于华邦",
+               "url":"http://dm.deepinfo.cn/hbang/index.php?s=/About/index.html",
+            }]
+    }
+  ]
+}

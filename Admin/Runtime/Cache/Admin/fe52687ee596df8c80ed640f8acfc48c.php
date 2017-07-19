@@ -1,0 +1,203 @@
+<?php if (!defined('THINK_PATH')) exit();?><!DOCTYPE html>
+<!--[if IE 8]> <html lang="en" class="ie8 no-js"> <![endif]-->
+<!--[if IE 9]> <html lang="en" class="ie9 no-js"> <![endif]-->
+<!--[if !IE]><!-->
+<html lang="en" class="no-js">
+<!--<![endif]-->
+<!-- BEGIN HEAD -->
+<head>
+<meta charset="utf-8"/>
+<title>华邦直播管理平台</title>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<meta content="" name="description"/>
+<meta content="" name="author"/>
+<link href="/hbang/Public/static/metronic/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css"/>
+<link href="/hbang/Public/static/metronic/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+<!-- END GLOBAL MANDATORY STYLES -->
+<!-- BEGIN THEME STYLES -->
+<link href="/hbang/Public/static/metronic/css/style-metronic.css" rel="stylesheet" type="text/css"/>
+<link href="/hbang/Public/static/metronic/css/style.css" rel="stylesheet" type="text/css"/>
+<link href="/hbang/Public/static/metronic/css/pages/login.css" rel="stylesheet" type="text/css"/>
+<!-- END THEME STYLES -->
+<link rel="shortcut icon" href="favicon.ico"/>
+<style type="text/css">
+	.login .content .form-title {
+	    font-weight: 300;
+	    margin-bottom: 25px;
+	    text-align:center;
+	}
+	body.login, body.xufei, body.chongzhi {
+    	background: #203140 none repeat scroll 0 0 !important;
+	}
+	.login .content {
+	    background-color: #fff;
+	    margin: 0 auto;
+	    padding: 20px 30px 15px;
+	}
+	.login .content {
+	    background: #ffffff none repeat scroll 0 0;
+	    border: 1px solid #cccccc;
+	    border-radius: 6px;
+	    box-shadow: 0 0 6px rgba(0, 0, 0, 0.2);
+	}
+	.alert {
+	    border: 1px solid transparent;
+	    border-radius: 39px;
+	    margin-bottom: 20px;
+	    padding: 7px;
+	}
+</style>
+</head>
+<!-- BEGIN BODY -->
+<body class="login">
+<!-- BEGIN LOGO -->
+<div class="logo">
+</div>
+<!-- END LOGO -->
+<!-- BEGIN LOGIN -->
+<div class="content">
+	<!-- BEGIN LOGIN FORM -->
+	<form class="login-form" action="<?php echo U('login');?>" method="post">
+		<h3 class="form-title">华邦直播管理平台</h3>
+		<div class="alert alert-danger display-hide alert_login">
+			<span>
+			</span>
+		</div>
+		<div class="form-group">
+			<!--ie8, ie9 does not support html5 placeholder, so we just show field title for that-->
+			<label class="control-label visible-ie8 visible-ie9">账号</label>
+			<div class="input-icon">
+				<i class="fa fa-user"></i>
+				<input class="form-control placeholder-no-fix" name="username" type="text" autocomplete="off" placeholder="请填写用户名"/>
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="control-label visible-ie8 visible-ie9">密码</label>
+			<div class="input-icon">
+				<i class="fa fa-lock"></i>
+				<input class="form-control placeholder-no-fix" name="password" type="password" autocomplete="off" placeholder="请填写密码"/>
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="control-label visible-ie8 visible-ie9">验证码</label>
+			<div class="input-icon">
+				<i class="fa fa-key"></i>
+				<input class="form-control placeholder-no-fix" name="verify" type="text" autocomplete="off" placeholder="请填写验证码"/>
+			</div>
+		</div>
+		<div class="form-group">
+			  <img class="verifyimg reloadverify" title="点击切换" src="<?php echo U('Public/verify');?>" style="width:100%;height:50px;cursor:pointer;">
+		</div>
+		<div class="form-actions" style="text-align:center;">
+			<button type="submit" class="btn green pull-center" style="width:90%;">
+				登录 <i class="m-icon-swapright m-icon-white"></i>
+			</button>
+		</div>
+	</form>
+	<!-- END LOGIN FORM -->
+	<!-- BEGIN FORGOT PASSWORD FORM -->
+	<!-- END FORGOT PASSWORD FORM -->
+	<!-- BEGIN REGISTRATION FORM -->
+	<!-- END REGISTRATION FORM -->
+</div>
+<!-- END LOGIN -->
+<!-- BEGIN COPYRIGHT -->
+<!-- END COPYRIGHT -->
+<!-- BEGIN JAVASCRIPTS(Load javascripts at bottom, this will reduce page load time) -->
+<!-- BEGIN CORE PLUGINS -->
+<!--[if lt IE 9]>
+	<script src="plugins/respond.min.js"></script>
+	<script src="plugins/excanvas.min.js"></script> 
+<![endif]-->
+<script src="/hbang/Public/static/metronic/plugins/jquery-1.10.2.min.js" type="text/javascript"></script>
+<script src="/hbang/Public/static/metronic/plugins/jquery-migrate-1.2.1.min.js" type="text/javascript"></script>
+<script src="/hbang/Public/static/metronic/plugins/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
+<script src="/hbang/Public/static/metronic/plugins/jquery-validation/dist/jquery.validate.min.js" type="text/javascript"></script>
+<script src="/hbang/Public/static/metronic/plugins/jquery.form.js" type="text/javascript"></script>
+<script src="/hbang/Public/static/metronic/scripts/core/app.js" type="text/javascript"></script>
+<script type="text/javascript">
+	jQuery(document).ready(function() {     
+	  App.init();
+	  var verifyimg = $(".verifyimg").attr("src");
+         $(".reloadverify").click(function(){
+             if( verifyimg.indexOf('?')>0){
+                 $(".verifyimg").attr("src", verifyimg+'&random='+Math.random());
+             }else{
+                 $(".verifyimg").attr("src", verifyimg.replace(/\?.*$/,'')+'?'+Math.random());
+             }
+         });
+
+         $('.login-form').validate({
+            errorElement: 'span', //default input error message container
+            errorClass: 'help-block', // default input error message class
+            focusInvalid: false, // do not focus the last invalid input
+            rules: {
+                username: {
+                    required: true
+                },
+                password: {
+                    required: true
+                },
+                verify: {
+                    required: true
+                }
+            },
+            messages: {
+                username: {
+                    required: "用户名必填"
+                },
+                password: {
+                    required: "密码必填"
+                },
+                verify: {
+                    required: "验证码必填"
+                }
+            },
+            highlight: function (element) { // hightlight error inputs
+                $(element)
+                    .closest('.form-group').addClass('has-error'); // set error class to the control group
+            },
+
+            success: function (label) {
+                label.closest('.form-group').removeClass('has-error');
+                label.remove();
+            },
+
+            errorPlacement: function (error, element) {
+                error.insertAfter(element.closest('.input-icon'));
+            },
+            submitHandler: function (form) {
+            	var msgBox = $('.alert_login');
+            	var formObj = $(form);
+            	formObj.find('[type="submit"]').attr("disabled", true).html('登录中...');
+                formObj.ajaxSubmit({
+        			datatype : "json",
+        		    success:function(html,status){                        
+        		    	var data = html;
+        		    	if(data.status){
+								window.location.href = data.url;
+						}else{
+   							if(data.info){
+  	   							msgBox.find('span').html(data.info);
+  	   							msgBox.show();
+   							}
+   						 	formObj.find('[type="submit"]').attr("disabled", false).html('登录<i class="m-icon-swapright m-icon-white"></i>');
+   						    $(".reloadverify").click();
+						}
+        		    }
+        		 });
+            }
+        });
+        $('.login-form input').keypress(function (e) {
+            if (e.which == 13) {
+                if ($('.login-form').validate().form()) {
+                    $('.login-form').submit(); //form validation success, call ajax form submit
+                }
+                return false;
+            }
+        });
+	});
+</script>
+</body>
+</html>

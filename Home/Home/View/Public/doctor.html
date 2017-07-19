@@ -1,0 +1,36 @@
+<style>
+.ftt {
+    width: 50%;
+    height: 7em;
+    float: left;
+}
+#noc{
+	color: #00bb9d;
+}
+</style>
+<div class="footer">
+			<div class="ftt wid50">
+				<a href="{:U('Doctor/index')}">
+				<if condition="CONTROLLER_NAME eq 'Doctor'">
+					<i><img src="__HOME__/img/foot1.png" width="20" height="20"/></i>
+					<p class="ftp1">邦邦好医声</p>
+				<else/>
+					<i><img src="__HOME__/img/pic31.png" width="20" height="20"/></i>
+					<p>邦邦好医声</p>
+				</if>
+				</a>
+			</div>
+			
+	
+			<div class="ftt wid50">
+				<a href="{:U('user/index/type/doctor')}">
+					<if condition="CONTROLLER_NAME eq 'User'">
+						<i><img src="__HOME__/img/i2-4.png" width="20" height="20"/></i>
+						<p id="noc">我的</p>
+					<else/>
+						<i><img src="__HOME__/img/rentou.png" width="20" height="20"/></i>
+						<p>我的</p>
+					</if>
+				</a>
+			</div>
+</div>

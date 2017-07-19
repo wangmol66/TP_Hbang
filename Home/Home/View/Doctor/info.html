@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, minimum-scale=1, maximum-scale=1">
+		<title></title>
+		<link rel="stylesheet" href="__HOME__/css/swiper.min.css" />
+		<script type="text/javascript" src="__HOME__/js/jquery-1.9.1.min.js"></script>
+		<script type="text/javascript" src="__HOME__/js/swiper.min.js"></script>
+		<link rel="stylesheet" type="text/css" href="__HOME__/css/base.css" />
+		<!-- <link rel="stylesheet" type="text/css" href="__HOME__/css/mui.min.css" /> -->
+		<link rel="stylesheet" href="__HOME__/css/main.css" />
+		<link rel="stylesheet" type="text/css" href="__HOME__/css/animate.css" />
+		<script src="__SLIKE__/layer.mobile-v2.0/layer_mobile/layer.js"></script> <!--Layer提示消息-->
+		<!-- <script src="__HOME__/weui/dist/example/zepto.min.js"></script> -->
+			<link rel="stylesheet" type="text/css" href="__PUBLIC__/tongyong/style/tongyong.css">
+		<style type="text/css">
+.tank {
+    width: 73%;
+    padding: 0 10px;
+    /* margin-top: 178px; */
+    background: #fff;
+	height: 10em;
+    margin: 0 auto;
+    position: absolute;
+    top: 50%;
+    border-radius: 13px;
+    left:50%;
+    margin-left:-36.5%;
+    z-index:9999;
+    margin-top:-5em;
+}
+
+.tank textarea {
+    width: 100%;
+    padding: 4px;
+    border-radius: 5px;
+    margin-top: 4%;
+    height: 71%;
+    border: 1px solid #E4DEDE;
+}
+
+.tank a {
+	border: 1px solid #ccc;
+	color: #4DB335;
+	border-radius: 2px;
+	font-size: 13px;
+	padding: 3px;
+	float: right;
+}
+
+.zhezao {
+	z-index: 999;
+	position: fixed;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	background: #000;
+	opacity: 0.5;
+	filter: alpha(opacity = 50);
+	-moz-opacity: 0.5;
+	background-size: 100% 100%;
+	display: none;
+}
+
+.tank button{
+	border: 0;
+    background: #1FC3A9;
+    height: 20%;
+    width: 100%;
+    position: absolute;
+    left: 0;
+    border-radius: 0px 0px 11px 11px;
+	bottom:0;
+}
+
+.head li .tu{
+	background: url(__HOME__/img/pic12.png) no-repeat;
+	width: 15px;
+	height: 15px;
+	display: block;
+	position: absolute;
+	top: 2%;
+	right: 3%;
+	background-size: 100%;
+}
+.head li .tu.huang{
+	background: url(__HOME__/img/1-i.png) no-repeat;
+	width: 15px;
+	height: 15px;
+	display: block;
+	position: absolute;
+	top: 2%;
+	right: 3%;
+	background-size: 100%;
+}
+
+
+
+
+
+
+
+
+
+
+.tu1{
+				background:url(__HOME__/img/pic6.png) no-repeat;
+				width: 20px;
+				height: 15px;
+				display: inline-block;
+				margin-right: 0.3em;
+				background-size:100%;
+				margin-bottom:-0.1em;
+			}
+			.lv{
+				background:url(__HOME__/img/pic40.png) no-repeat;
+				width: 20px;
+				height: 15px;
+				display: inline-block;
+				margin-right: 0.3em;
+				background-size:100%;
+			}
+
+		.tuwen .zan a .tu.t2{
+			margin-bottom:-0.1em;
+		}
+
+		
+		.tu2{
+				background:url(__HOME__/img/pic10.png) no-repeat;
+				width: 18px;
+				height: 20px;
+				display: inline-block;
+				margin-right: 0.3em;
+				background-size:100%;
+				margin-bottom:-0.16em;
+			}
+		.bai{
+			background:url(__HOME__/img/pic42.png) no-repeat;
+				width: 18px;
+				height: 20px;
+				display: inline-block;
+				margin-right: 0.3em;
+				margin-bottom:-0.16em;
+				background-size:100%;
+		}
+		
+		.head li h3 {
+   	 		width: 98%;
+		}
+		
+		.warps-textCons {
+    text-align: center;
+    padding: 0em 0 1em 0;
+}
+.warps-textCons img {
+    width: 30%;
+}
+.warps-textCons h1 {
+    font-size: 0.9em;
+}
+</style>
+	</head>
+
+	<body>
+
+		<div class="content marginB">
+			<div class="mid-box">
+				<ul class="head">
+					<li>
+						<h3>{$info.title}</h3>
+						<i class="tu <?php if($iscoll){echo 'huang';};?>" id="shouc"></i>
+						<script type="text/javascript">
+							$(function(){
+								$('#shouc').click(function(){
+									var _this = this;
+									if ($(_this).hasClass("huang")) {
+										$(_this).removeClass("huang");
+										$(_this).siblings(".huang").addClass("huang");
+									}else{
+										$(_this).addClass("huang");
+										$(_this).siblings(".huang").removeClass("huang");
+									}
+									$.post("{:U('Doctor/shouc')}",{id:"{$info.id}"},function(data){
+										if(data.status){
+								
+									       	//提示
+						      			    layer.open({
+						      			       content: data.info
+						      			       ,skin: 'msg'
+						      			       ,time: 2 //2秒后自动关闭
+						      			    });
+										}
+									})
+								})
+							})
+						</script>
+						<h6></h6>
+					</li>
+					<li>
+						<div class="time-left">
+							<span class="wz6">{$info.addtime_1}</span>
+						</div>
+						<div class="liulan">
+							<span>浏览量：{$info.view}</span>
+							<span>评论：{$info.reply}</span>
+							<span>点赞：{$info.good}</span>
+						</div>
+						<h6></h6>
+					</li>
+				</ul>
+				<div class="introduce">
+					<div class="wz3 introduce-img">
+						{$info.content}
+					</div>
+				</div>
+			</div>
+			<div class="mid-box">
+				<div class="mid-top">
+					<h3>评论</h3>
+				</div>
+				<volist name="reply" id="vo">
+				<div class="tuwen">
+					<div class="list">
+						<a href=""><i class="touxiang"><img src="{$vo.headimgurl}" style="border-radius: 50%;"/></i></a>
+						<h3>{$vo.nickname}</h3>
+						<p class="time">{$vo.addtime_2}</p>
+						<h6></h6>
+					</div>
+					<p class="wz4">{$vo.content}</p>
+					<div class="zan">
+						<a href="javascript:" class="dianzan" data-type="reply" data-id="{$vo.rid}"><i class="tu1 {$vo['dianzan']==1?'lv':''}"></i>点赞(<span class="zan-num" style="font-size:12px">{$vo.good}</span>)</a>
+						<a href="{:U('user/reply/type/doctor/id/'.$info['id'].'/rid/'.$vo['rid'])}" <if condition="$vo['user_id'] neq UID"> class="reply-user"<else/>class="msg"</if> data-id="{$vo.rid}"><i class="tu t2"><img src="__HOME__/img/pic7.png"/></i>回复</a>
+					</div>
+					<h6></h6>
+					<div class="pinglun">
+						<volist name="vo['child']" id="voo">
+						<if condition="$voo['prid'] eq $vo['rid']">
+							<p <if condition="$voo['user_id'] neq UID"> onclick="location ='{:U('user/reply/type/doctor/id/'.$info['id'].'/rid/'.$voo['rid'])}'" <else/>class="msg"</if>>
+								<label  data-id="{$voo.rid}">{$voo.nickname}：</label>{$voo.content}
+							</p>
+						<else/>
+							<p <if condition="$voo['user_id'] neq UID"> onclick="location ='{:U('user/reply/type/doctor/id/'.$info['id'].'/rid/'.$voo['rid'])}'" <else/>class="msg"</if>>
+								<label  data-id="{$voo.rid}">{$voo.nickname}：</label>回复<label <if condition="$voo['reply']['user_id'] neq UID"> class="reply-user"<else/>class="msg"</if> data-id="{$voo.rid}">{$voo.reply.nickname}：</label>{$voo.content}
+							</p>
+						</if>
+						</volist>
+					</div>
+				</div>
+				</volist>
+				<?php if(!$reply){?>
+					<section>
+					    <div id="body-container">
+					        <div class="warps-textCons">
+					            <img src="__PUBLIC__/tongyong/images/png/11.png"/>
+					            <h1>暂无评论</h1>
+					        </div>
+					    </div>
+					</section>
+				
+				<?php }?>
+			</div>
+
+		</div>
+	
+		<div class="footer za">
+			<div class="flo-box">
+				<div class="flo">
+					<a href="javascript:" class="dianzan" data-type="doctor" data-id="{$info.id}"><i class="tu2 {$info['dianzan'] == 1?'bai':''}"></i>点赞</a>
+				</div>
+				<div class="flo">
+					<a href="{:U('user/reply/type/doctor/id/'.$info['id'].'/rid/0')}"><i class="tu"><img class="img1" src="__HOME__/img/pic11.png"/></i>回复</a>
+				</div>
+			</div>
+		</div>
+		
+			<div class="zhezao"></div>
+			<div class="tank" style="display:none">
+				<textarea rows="3" cols="20"></textarea>
+			
+				<button>提交</button>
+			</div>
+		<script>
+			var swiper = new Swiper('.contorl-wz', {
+				slidesPerView: 3,
+				paginationClickable: true,
+				spaceBetween: 10
+			});
+			
+			var PRID = 0;//回复回复的ID  0则是回复的文章
+			$(function() {
+				
+			/* 	$(".dianji").click(function(){
+					$(".zhezao").show();
+					$(".tank").show()
+					PRID = 0;//回复ID
+					$(".tank textarea").focus();
+				}) */
+				$(".msg").click(function(){
+			       	//提示
+      			    layer.open({
+      			       content: '不能回复自己'
+      			       ,skin: 'msg'
+      			       ,time: 2 //2秒后自动关闭
+      			    });
+			       	
+			       	return false;
+				})
+				
+/* 				$(".reply-user").click(function(){
+					$(".zhezao").show();
+					$(".tank").show()
+					PRID = $(this).attr('data-id');//回复ID
+					$(".tank textarea").focus();
+				}) */
+					
+				/* $(function(){
+					$(".tank button").click(function(){
+						
+						var text = $(".tank").find("textarea").val();
+						var id = "{$_GET['id']}"
+						
+						if(text == ''){
+							//提示
+		      			    layer.open({
+		      			       content: '回复内容不能为空'
+		      			       ,skin: 'msg'
+		      			       ,time: 2 //2秒后自动关闭
+		      			    });
+							return 0;
+						}
+						
+						$.post("{:U('Doctor/reply')}",{id:id,text:text,prid:PRID},function(data){
+							if(data.status){
+								window.location.href="";
+							}
+						})
+						
+						$(".tank").hide().find("textarea").val("");
+						$(".zhezao").hide();
+					})
+					
+					$(".zhezao").click(function(){
+						$(".tank").hide().find("textarea").val("");
+						$(".zhezao").hide();
+					})
+				}) */
+				/*点赞*/
+				$(".dianzan").on('click',function(){
+					if($(this).hasClass("pulse")){
+						$(this).removeClass("pulse");
+					}else{
+						$(this).addClass("animated pulse");
+						$(this).children(".tu1").addClass("lv");
+					}
+					var id = $(this).attr('data-id');
+					var type = $(this).attr('data-type');
+					var _this = this;
+					$.post("{:U('Doctor/dianzan')}",{id:id,type:type},function(data){
+						if(data.status){
+							if(type == 'reply'){
+								var num = parseInt($(_this).children('.zan-num').text())+1;
+								$(_this).children('.zan-num').text(num);
+							}
+							
+							//提示
+		      			    layer.open({
+		      			       content: '点赞成功'
+		      			       ,skin: 'msg'
+		      			       ,time: 2 //2秒后自动关闭
+		      			    });
+						}else{
+							//提示
+		      			    layer.open({
+		      			       content: '不能重复点赞'
+		      			       ,skin: 'msg'
+		      			       ,time: 2 //2秒后自动关闭
+		      			    });
+						}
+					})
+				})
+			})
+			
+			
+			$(function(){
+				$(".dianzan").click(function(){
+					$(".tu2").addClass("bai");
+					
+				})
+				
+			})
+		</script>
+
+	</body>
+
+</html>

@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, minimum-scale=1, maximum-scale=1">
+		<title></title>
+		<link rel="stylesheet" href="__HOME__/css/swiper.min.css" />
+		<script type="text/javascript" src="__HOME__/js/jquery-1.9.1.min.js"></script>
+		<script type="text/javascript" src="__HOME__/js/swiper.min.js"></script>
+		<link rel="stylesheet" type="text/css" href="__HOME__/css/base.css" />
+		<link rel="stylesheet" href="__HOME__/css/main.css" />
+		<link href="__HOME__/css/common.css" type="text/css" rel="stylesheet"/>
+		<link href="__HOME__/css/index.css" type="text/css" rel="stylesheet"/>
+		<link rel="stylesheet" type="text/css" href="__HOME__/css/animate.css" />
+		<script src="__HOME__/js/imgUp.js" type="text/javascript" charset="utf-8"></script>
+		<script src="http://www.jq22.com/jquery/jquery-1.10.2.js"></script>
+		<script src="__HOME__/jquery.form.js"></script>
+		
+		<script src="__HOME__/weui/dist/example/zepto.min.js"></script>
+    	<script src="http://res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
+    	<link rel="stylesheet" type="text/css" href="__HOME__/weui/dist/style/weui.css" />
+    	<style>
+    	.pp{
+	    	color: #999999;
+		    font-size: 0.7em;
+		    margin-top: 0.3em;
+		    margin-bottom: 1em;
+		    margin-left: 1.1em;
+    	}
+		::-webkit-input-placeholder { /* WebKit browsers */
+		color: #ccc;
+		}
+		:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+		color: #ccc;
+		}
+		::-moz-placeholder { /* Mozilla Firefox 19+ */
+		color: #ccc;
+		}
+		:-ms-input-placeholder { /* Internet Explorer 10+ */
+		color: #ccc;
+		}
+		textarea::textarea-placeholder{
+			color:#ccc;
+		}
+		.weui-cells:after,.weui-cells:before{
+			width:0;
+		}
+		.headline li input[type=text]{
+			font-weight:400;
+		}
+    	</style>
+	</head>
+
+	<body>
+
+		<div class="content">
+			<ul class="headline">
+				<li>
+					<label class="lab letter">标　　题</label>
+					<input type="text" name="title" id="" value="" placeholder="一个好标题可以吸引更多的人观看" />
+				</li>
+				<li>
+					<label class="lab1">正　　文</label>
+				</li>
+				<li>
+					<textarea placeholder="准确的描述才能让人更有目标性的帮助你哦~" name="content"></textarea>
+				</li>
+				<li>
+				<div class="page">
+					<div class="page__bd">
+						<div class="weui-gallery" id="gallery">
+							<span class="weui-gallery__img" id="galleryImg"></span>
+							<div class="weui-gallery__opr">
+								<a href="javascript:" class="weui-gallery__del"
+									id="galleryImgDelete"> <i
+									class="weui-icon-delete weui-icon_gallery-delete"></i>
+								</a>
+							</div>
+						</div>
+
+						<div class="weui-cells weui-cells_form">
+							<div class="weui-cell">
+								<div class="weui-cell__bd">
+									<div class="weui-uploader">
+										<div class="weui-uploader__hd">
+											<p class="weui-uploader__title">图片上传</p>
+											<div class="weui-uploader__info">0/5</div>
+										</div>
+										<div class="weui-uploader__bd">
+											<ul class="weui-uploader__files" id="uploaderFiles">
+											</ul>
+											<div class="weui-uploader__input-box" id="chooseImage"></div>
+
+										</div>
+									</div>
+								</div>
+							</div>
+							<p class="pp">*点击添加图片，最多可上传5张</p>
+						</div>
+					</div>
+					</div>
+				</li>
+			</ul>
+			<button class="btn" id="uploadImage">
+				立即发布
+			</button>
+		</div>
+		
+		<script type="text/javascript">
+
+        wx.config({
+            debug: false, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
+            appId: '{$sign.appId}', // 必填，公众号的唯一标识
+            timestamp:'{$sign.timestamp}', // 必填，生成签名的时间戳
+            nonceStr: '{$sign.nonceStr}', // 必填，生成签名的随机串
+            signature: '{$sign.signature}',// 必填，签名，见附录1
+            jsApiList: [
+                'checkJsApi',
+                'chooseImage',
+                'previewImage',
+                'uploadImage',
+                'downloadImage',
+
+            ]
+        });
+
+
+
+        wx.ready(function () {
+        	
+            var images = {
+                localId: [],
+                serverId: []
+            };
+            var NOW=0,MAX = 5;
+            document.querySelector('#chooseImage').onclick = function () {
+                wx.chooseImage({
+                    success: function (res) {
+                    	for(var i = 0;i<res.localIds.length;i++){
+                    		if(NOW<MAX){
+                    			getLocalImgData(res.localIds[i]);
+	                    		setNumber(1);
+                    		}
+                    	}
+                    
+                    }
+                });
+            };
+			
+            /*设置图片个数*/
+            //xisu 系数，1 -1   代表 加或者减
+            function setNumber(xisu){
+            	NOW = NOW+xisu;
+            	$('.weui-uploader__info').text(NOW+'/'+MAX);
+            }
+    
+            function getLocalImgData(localId){
+	            wx.getLocalImgData({
+	                localId: localId, // 图片的localID
+	                success: function (res) {
+	                    var localData = res.localData; // localData是图片的base64数据，可以用img标签显示
+	                    console.log(res);
+	                    $('#uploaderFiles').append('<li class="weui-uploader__file" data-localId="'+localId+'" style="background-image:url('+localData+')"></li>');
+	                }
+	            });
+            }
+            
+            
+            $("#uploaderFiles").on("click", "li", function(){
+            	$("#galleryImg").attr("style", this.getAttribute("style"));
+            	$("#gallery").fadeIn(100);
+                var _this=this;
+                $("#galleryImgDelete").click(function(){
+                	$("#gallery").fadeOut(100);
+                    _this.remove();
+                    //设置数据
+                    var li = $('#uploaderFiles').children('li');
+                    $('.weui-uploader__info').text(li.length+'/'+MAX);
+                    NOW = li.length;
+                    return false;
+                });
+                
+                $("#gallery").click(function(){
+                	$("#gallery").fadeOut(100);
+                });
+            });
+            
+            // 5.3 上传图片
+            function uploadl(localIds){
+
+                //如果图片多张
+                var i=0,length=localIds.length;
+                images.serverId = []; //初始化
+                function upload() {
+                    wx.uploadImage({
+                        localId: localIds[i],
+                        isShowProgressTips: 0,
+                        success: function (res) {
+                            images.serverId.push(res.serverId);
+                            i++;
+                            if(i<length){
+                                upload();
+                            }else{
+                            	BangSubmit();//上传完图片之后，提交
+                            }
+                        },
+                        fail: function (res) {
+                            alert(JSON.stringify(res));
+                        }
+                    });
+                }
+                upload();
+            };
+            var OBJ;
+            /*点击上传图片*/
+            document.querySelector('#uploadImage').onclick = function (){
+            	images.localId = [];//初始化
+            	var li = $('#uploaderFiles').children('li');
+            	for(var i = 0;i<li.length;i++){
+            		images.localId.push($(li[i]).attr('data-localId'));
+            	}
+            	console.log(images);
+            	OBJ = WeUi.loadingToast('正在上传',100000);
+            	var res = uploadl(images.localId);
+            	
+            	
+            }
+	
+            /*最后的上传提交*/
+            function BangSubmit(){
+            	//上传到微信服务器
+           		console.log(images.serverId);
+               	var title = $('input[name="title"]').val();
+               	var content = $('textarea[name="content"]').val();
+               	//提交
+                   $.ajaxSetup({ async : true });
+                   $.post("{:U('ajaxRelease')}",{images:images,title:title,content:content},function (data) {
+                   	console.log(data);
+                       if(data.status){
+                       	OBJ.fadeOut(100);
+                           WeUi.Toast('提交成功,等待审核')
+                           setTimeout(function () {
+                               window.location.href=data.url;
+                               
+                           },2000)
+                       }
+                       else{
+                       	OBJ.fadeOut(100);
+                       	WeUi.Toast('网络错误')
+                       }
+                   })
+            }
+        })
+
+        $(function () {
+
+           
+        })
+        
+    </script>
+    <include file="Public:weui"/>
+	</body>
+
+</html>

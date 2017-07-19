@@ -1,0 +1,85 @@
+<include file="Public:header"/>
+<div class="page-container"> 
+  <!-- BEGIN SIDEBAR --> 
+  <include file="Public:sidebar" /> 
+  <!-- END SIDEBAR --> 
+  <!-- BEGIN CONTENT -->
+  <div class="page-content-wrapper">
+    <div class="page-content"> 
+      <!-- BEGIN PAGE HEADER-->
+      <div class="row">
+        <div class="col-md-12"> 
+          <!-- BEGIN PAGE TITLE & BREADCRUMB-->
+          <h3 class="page-title"> {$title}  </h3>
+          <ul class="page-breadcrumb breadcrumb">
+            <li> <a href="javascript:void(0);"> 关于我们 </a> <i class="fa fa-angle-right"></i> </li>
+            <li> {$title}  </li>
+          </ul>
+          <!-- END PAGE TITLE & BREADCRUMB--> 
+        </div>
+      </div>
+        <div class="row">
+            <div class="col-md-12">
+                <!-- BEGIN VALIDATION STATES-->
+                <div class="portlet box">
+                    <div class="portlet-body form">
+                        <!-- BEGIN FORM-->
+                        <form action="{:U('save')}" class="form-horizontal" method="post">
+                        <input type="hidden" name="id" value="{$info.id}">
+                            <div class="form-body">
+                                <div class="form-group">
+                                    <label class="control-label col-md-3">标题  <span class="required">*</span></label>
+                                    <div class="col-md-4">
+                                        <input class="form-control required" name="title" value="{$info.title}" type="text">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-md-3">文章内容  <span class="required">*</span></label>
+                                    <div class="col-md-6">
+                                        <script id="content" name="content" class="required" type="text/plain" style="height:400px; z-index:998">{$info.content}</script>
+                                    </div>
+                                </div>
+                                
+                            </div>
+                            <div class="form-actionsc fluid">
+                                <div class="col-md-offset-3 col-md-9">
+                                    <button type="submit" class="btn green"><i class="fa fa-save"></i> 保存</button>
+                                    <a href="{:U('index')}" class="btn default"><i class="fa fa-chevron-left"></i> 返回</a>
+                                </div>
+                            </div>
+                        </form>
+                        <!-- END FORM-->
+                    </div>
+                </div>
+                <!-- END VALIDATION STATES-->
+            </div>
+        </div>
+    </div>
+  </div>
+  <!-- END CONTENT --> 
+  <script type="text/javascript">
+		$(function(){
+
+            ue = UE.getEditor('content',{
+            	"zIndex":0,
+            	"serverUrl":"{:U('Review/upload')}",
+            	"toolbars": [[
+                    'fullscreen', 'source', '|', 'undo', 'redo', '|',
+                    'bold', 'italic', 'underline', 'fontborder', 'strikethrough', 'superscript', 'subscript', 'removeformat', 'formatmatch', 'autotypeset', 'blockquote', 'pasteplain', '|', 'forecolor', 'backcolor', 'insertorderedlist', 'insertunorderedlist', 'selectall', 'cleardoc', '|',
+                    'rowspacingtop', 'rowspacingbottom', 'lineheight', '|',
+                    'customstyle', 'paragraph', 'fontfamily', 'fontsize', '|',
+                    'directionalityltr', 'directionalityrtl', 'indent', '|',
+                    'justifyleft', 'justifycenter', 'justifyright', 'justifyjustify', '|', 'touppercase', 'tolowercase', '|',
+                    'link', 'unlink', 'anchor', '|', 'imagenone', 'imageleft', 'imageright', 'imagecenter', '|',
+                    'simpleupload', 'insertimage', 'emotion', 'scrawl', 
+                    'attachment',  'insertframe', 'insertcode', 'webapp', 'pagebreak', 'template', 'background', '|',
+                    'horizontal', 'date', 'time', 'spechars', 'snapscreen', 'wordimage', '|',
+                    'inserttable', 'deletetable', 'insertparagraphbeforetable', 'insertrow', 'deleterow', 'insertcol', 'deletecol', 'mergecells', 'mergeright', 'mergedown', 'splittocells', 'splittorows', 'splittocols', 'charts', '|',
+                    'print', 'preview', 'searchreplace', 'drafts', 'help'
+                ]]
+            	});
+            $.e_validate.init('.form-horizontal',{ignore:''});
+		});
+	</script> 
+</div>
+</body></html>

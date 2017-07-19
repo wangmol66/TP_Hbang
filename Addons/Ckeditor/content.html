@@ -1,0 +1,15 @@
+<script src="__STATIC__/ckeditor/ckeditor.js" type="text/javascript"></script>
+<script type="text/javascript">
+	CKEDITOR.replace('{$addons_data.id}',{
+			uploadUrl:'{:addons_url("Ckeditor://Upload/upload")}',
+			filebrowserUploadUrl: '{:addons_url("Ckeditor://Upload/uploadImg")}'
+		});
+	$(function(){
+		$('#submit').click(function(){
+			var data = CKEDITOR.instances.{$addons_data.id}.getData();
+			$('#{$addons_data.id}').val(data);
+		});
+	})
+</script>
+
+		

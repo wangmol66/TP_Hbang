@@ -1,0 +1,246 @@
+<include file="Public:header" />
+<div class="page-container">
+	<!-- BEGIN SIDEBAR -->
+	<include file="Public:sidebar" />
+	<!-- END SIDEBAR -->
+	<!-- BEGIN CONTENT -->
+	<div class="page-content-wrapper">
+		<div class="page-content">
+			<!-- BEGIN PAGE HEADER-->
+			<div class="row">
+				<div class="col-md-12">
+					<!-- BEGIN PAGE TITLE & BREADCRUMB-->
+					<h3 class="page-title">{$meta_title}</h3>
+					<ul class="page-breadcrumb breadcrumb">
+						<li><a href="javascript:void(0);"> 邦邦问题 </a> <i
+							class="fa fa-angle-right"></i></li>
+						<li>{$meta_title}</li>
+					</ul>
+					<!-- END PAGE TITLE & BREADCRUMB-->
+				</div>
+			</div>
+			<div class="row">
+				<!-- <div class="col-md-2">
+					<ul class="list-unstyled profile-nav">
+						<li><img src="{$info['show_url']}" class="img-responsive"
+							alt=""></li>
+					</ul>
+				</div> -->
+				<div class="col-md-12">
+					<div class="row">
+						<div class="col-md-9 profile-info">
+							<div class="row">
+								<div class="col-md-12">
+									<div
+										style="border: 1px solid #ddd; padding: 10px; margin-bottom: 30px;">
+										<div class="row">
+											<div class="col-md-12">
+												<div class="row">
+													<div class="col-md-6">
+														<div class="form-group">
+															<label class="col-md-3 control-label text-label">标题：</label>
+															<div class="col-md-9 text-val">{$info.title}</div>
+														</div>
+													</div>
+													<div class="col-md-6">
+														<div class="form-group">
+															<label class="col-md-3 control-label text-label">作者：</label>
+															<div class="col-md-9 text-val">
+																<div class="radio-inline" style="padding-left: 0;">
+																	<label style="margin-bottom: 0;">{$info.author}</label>
+																</div>
+															</div>
+														</div>
+													</div>
+													<div class="col-md-6">
+														<div class="form-group">
+															<label class="col-md-3 control-label text-label">赞：</label>
+															<div class="col-md-4 text-val">{$info.good}</div>
+														</div>
+													</div>
+													<div class="col-md-6">
+														<div class="form-group">
+															<label class="col-md-3 control-label text-label">浏览：</label>
+															<div class="col-md-4 text-val">{$info.view}</div>
+														</div>
+													</div>
+													<div class="col-md-6">
+														<div class="form-group">
+															<label class="col-md-3 control-label text-label">回复：</label>
+															<div class="col-md-4 text-val">{$info.reply}</div>
+														</div>
+													</div>
+
+													<div class="col-md-6">
+														<div class="form-group">
+															<label class="col-md-3 control-label text-label">状态：</label>
+															<div class="col-md-4 text-val">
+																<?php echo $info['status']==1?'启用':'禁用';?>
+															</div>
+														</div>
+													</div>
+													<div class="col-md-6">
+														<div class="form-group">
+															<label class="col-md-3 control-label text-label">创建时间：</label>
+															<div class="col-md-4 text-val">{$info.addtime|date="Y-m-d H:i:s",###}
+															</div>
+														</div>
+													</div>
+
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<!--end col-md-8-->
+						<div class="col-md-3">
+							<div class="portlet sale-summary">
+								<div class="portlet-body">
+									<ul class="list-unstyled">
+										<!--  <li>
+                                <span class="sale-info">
+                                    总库存
+                                </span>
+                                <span class="sale-num">
+                                     0
+                                </span>
+                            </li>
+                            -->
+									</ul>
+								</div>
+							</div>
+						</div>
+						<!--end col-md-4-->
+					</div>
+					<!--end row-->
+					<div class="tabbable tabbable-custom tabbable-custom-profile">
+						<ul class="nav nav-tabs">
+							<li class="active"><a href="#tab_2" data-toggle="tab"> 回复列表 </a></li>
+							<li><a href="#tab_1_22" data-toggle="tab"> 详细内容 </a></li>
+							<!-- <li><a href="#tab_1_23" data-toggle="tab"> 评论回复 </a></li> -->
+						</ul>
+						<include file="Public:model" />
+						<div class="tab-content">
+							<!--tab-pane-->
+							<div class="tab-pane" id="tab_1_22">
+									<div style="width: 100%; padding: 10px;"
+										class="description-box">
+										<div class="row" style="">
+											<div class="col-md-3">
+											</div>
+											<div class="col-md-6">
+												{$info.content}
+											</div>
+											<div class="col-md-3">
+											</div>
+										</div>
+										<div class="row" style="">
+											<div class="col-md-3">
+											</div>
+											<div class="col-md-6">
+												<volist name="info['images_1']" id="vo" >
+													<img src="{$vo}" style="max-height:250px;max-width: 150px;">
+												</volist>
+											</div>
+											<div class="col-md-3">
+											</div>
+										</div>
+									</div>
+							</div>
+							<!--tab-pane-->
+							<div class="tab-pane  active" id="tab_2">
+								<div class="portlet-body">
+									<div class="portlet">
+										<div class="portlet-body" style="margin-top: 10px;">
+											<div class="table-container">
+												<div class="table-actions-wrapper">
+													<span> </span>
+													
+													<select
+								                        class="form-control input-inline input-small input-sm select-batch">
+								                    <option value="0">批量操作</option>
+								                    <option value="1">删除</option>
+								                </select>
+                								
+												</div>
+												<table class="table table-bordered table-hover"
+													id="datatable" style="font-size: 13px">
+													<thead>
+														<tr role="row" class="heading">
+															<th width="46px" sort="false">
+																<input class="group-checkable" type="checkbox">
+															</th>
+															<th width="100px" desc="true">用户</th>
+															<th sort="false"  sort="false">内容</th>
+															<th width="60px">点赞数</th>
+															<th width="150px" sort="false">创建时间</th>
+															<th width="70px">是否权威</th>
+															<th width="100px" sort="false">状态</th>
+															<th width="100px" sort="false">操作</th>
+														</tr>
+													</thead>
+													<tbody>
+													</tbody>
+												</table>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<!--tab-pane-->
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- END CONTENT -->
+	<script type="text/javascript">
+		$(function(){
+			datatable_init({
+				src: $("#datatable"),
+				sAjaxSource: "{:U('Answer/getReplyList/id/'.$_GET['id'])}",
+	            aoColumns:[
+	            	{bSortable:false},
+	            	{bSortable:false},
+	            	{bSortable:false},
+	            	{bSortable:false},
+	            	{bSortable:false},
+	            	{bSortable:false},
+	            	{bSortable:false},
+	            	{bSortable:false},
+	            	],
+			});
+			
+			$('.remaks-item').live('focus', function(){
+    			$(this).css('height', '150px');
+    		});
+    		$('.remaks-item').live('blur', function(){
+    			$(this).css('height', '22px');
+    		});
+    		
+			$('.select-batch').change(function(){
+                var type = $(this).val();
+                var val=[];
+                var oB = $('.checkable');
+                for(var i = 0;i<oB.length;i++){
+                    if(oB[i].checked){
+                        val.push(oB[i].value);
+                    }
+                }
+                msg=['确定要删除已选用户么？'];
+                console.log(val);
+
+
+                Smelly.confirmAlert("{:U('member/checked')}",msg[type-1],{val:val,type:type},function(data){
+                    console.log(data);
+                });
+
+            })
+		});
+	</script>
+</div>
+</body>
+</html>

@@ -1,0 +1,133 @@
+<html>
+<include file="Public:header"/>
+<link href="__STATIC__/treeview/css/default.css" rel="stylesheet" type="text/css"/>
+
+<script src="SLIKE/dropify-master20160830/dist/js/dropify.js" type="text/javascript"></script>
+<link href="SLIKE/dropify-master20160830/dist/css/dropify.css" rel="stylesheet" type="text/css"/>
+
+
+<body>
+<div class="page-container">
+    <!-- BEGIN SIDEBAR -->
+    <include file="Public:sidebar" />
+    <!-- END SIDEBAR -->
+    <!-- BEGIN CONTENT -->
+    <div class="page-content-wrapper">
+        <div class="page-content">
+            <div class="alert alert-warning" style="display: none">
+                <strong>警告!</strong>你的操作是不允许的！
+            </div>
+            <!-- BEGIN PAGE HEADER-->
+            <div class="row">
+                <div class="col-md-12">
+                    <!-- BEGIN PAGE TITLE & BREADCRUMB-->
+                    <h3 class="page-title">{$meta_title}</h3>
+                    <ul class="page-breadcrumb breadcrumb">
+                        <li> <a href="javascript:void(0);" style="font-size: 13px;"> {$meta_title_top} </a> <i class="fa fa-angle-right"></i> </li>
+                        <li style="font-size: 13px;">{$meta_title}</li>
+                    </ul>
+                    <!-- END PAGE TITLE & BREADCRUMB-->
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="portlet">
+                        <div class="portlet-body">
+                            <div class="table-container">
+                                <div class="table-actions-wrapper"> <span> </span><button class="btn btn-sm green add-btn add-goods"  data-toggle="modal"><i class="fa fa-plus"></i>添加图片</button></div>
+
+                                <table class="table table-bordered table-striped table-hover" style="font-size: 1.3px;" id="datatable">
+                                    <thead>
+                                    <tr class="heading" role="row">
+                                        <th width="1%">编号</th>
+                                        <th >排序</th>
+                                        <th width="10%">轮播图片</th>
+                                        <th width="20%">跳转URL</th>
+                                        <th width="4%">状态</th>
+                                        <th width="10%">操作</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+         
+            <!--BEGIN BODY-->
+            <include file="Public:model" />
+            <script>
+                $(function () {
+
+                    $('.add-goods').live('click',function () {
+                        var model = $('#myModal');
+                        var obj=Object.create(Editer);
+                        
+						obj.Ajax("{:U('shows/getAllArticle')}",function(article){
+							/* console.log(article); */
+	                        model.find('#add-address').attr('action', "{:U('add')}");
+	                        model.find('.modal-title').html("上传图片");
+	                        model.find('.btn-primary').html("立即添加");
+	                        model.find('.modalbody').html('');
+	
+	                        model.find('.modalbody').append(obj.Dropify('上传图片：', 'showpic',''));//添加了一个文字编辑器
+	
+	                        model.find('.modalbody').append(obj.select2('跳转文章：', 'url',obj.getOption(article,'article_id','title'),'选择跳转至文章'));//添加了一个文字编辑器
+							$('#url').select2();
+	                        $('.showpic').dropify({
+	                            messages: {'default': '点击上传图片','replace': '点击图片上传替换图片','remove':'删除图片','error':'Ooops, something wrong appended.'}}
+	                        ).on('dropify.beforeClear',function(event, element) {
+	
+	                            return confirm("Do you really want to delete \"" + element.filename + "\" ?");
+	                        });
+						})
+                        model.modal();
+                        App.unblockUI();
+                        $.e_validate.init('#add-address', {modal: model, ignore: ''});
+                    })
+
+                    $('.sortadd').live('click',function () {
+                        var url=$(this).attr('href')
+                          $.ajax({
+                              url:url,
+                              success:function (data) {
+                                  console.log(data)
+                                  if(data.status){
+                                      $('#datatable').dataTable().fnDraw();
+                                  }
+                                  show_message({status:data.status,info:data.info})
+                              }
+                          })
+                        return false;
+                    })
+
+                    function ajaxRequestCallBack(){
+
+                    }
+                })
+                
+                function Dropify(title,id,value) {
+                    var html = '';
+//                    html+='<div class="well">';
+                    html+='<input type="file" class="'+id+'" name="'+id+'" data-show-remove="false" data-show-loader="true" data-default-file="'+value+'"/>';
+//                    html+='</div>';
+                    return html;
+                }
+
+                $(function(){
+                    datatable_init({
+                        src: $("#datatable"),
+                        sAjaxSource: "{:U('getList')}",
+                        aoColumns:[{bSortable:false},{bSortable:false},{bSortable:false},{bSortable:false},{bSortable:false},{bSortable:false},],
+                    });
+
+                });
+            </script>
+            <!--END BODY-->
+        </div>
+    </div>
+</div>
+</body>
+</html>

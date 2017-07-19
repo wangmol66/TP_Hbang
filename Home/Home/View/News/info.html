@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, minimum-scale=1, maximum-scale=1">
+		<title></title>
+		<link rel="stylesheet" href="__HOME__/css/swiper.min.css" />
+		<script type="text/javascript" src="__HOME__/js/jquery-1.9.1.min.js"></script>
+		<script type="text/javascript" src="__HOME__/js/swiper.min.js"></script>
+		<link rel="stylesheet" type="text/css" href="__HOME__/css/base.css" />
+		<link rel="stylesheet" href="__HOME__/css/main.css" />
+		<link rel="stylesheet" type="text/css" href="__HOME__/css/animate.css" />
+		<style>
+		.wz3 img{
+			margin: 0 auto;
+			max-width:100%;
+		}
+		</style>
+	</head>
+
+	<body>
+
+		<div class="content marginB">
+			<div class="mid-box">
+				<ul class="head">
+					<li>
+						<h3>{$info.title}</h3>
+						<h6></h6>
+					</li>
+					<li>
+						<div class="time-left">
+							<span class="wz6">{$info.addtime|date="Y-m-d H:i:s",###}</span>
+						</div>
+						<h6></h6>
+					</li>
+				</ul>
+				<div class="introduce">
+					<div class="wz3">
+						{$info.content}
+					</div>
+					<!-- <div class="introduce-img">
+						<a href=""><img src="__HOME__/img/jpg/pic9.jpg" /></a>
+					</div>
+					<div class="wz4">
+						<p>举办心理测验师培训班。内容包括心理测验（即各种量表和检查提纲)是心理科辅助诊断、病情评估和疗效评估，以及开展心理咨询和心理治疗的必要手段，是一项专门技术。该培训班是为了提高基层精神病院（科)的心理测验技术水平而举办，请广大基层精神病院（科)踊跃报名参加培训。</p>
+					</div> -->
+				</div>
+			</div>
+		</div>
+
+		<!-- <div class="footer za">
+			<div class="flo-box">
+				<div class="flo">
+					<a href=""><i class="tu"><img src="__HOME__/img/pic10.png"/></i>点赞</a>
+				</div>
+				<div class="flo">
+					<a href=""><i class="tu"><img class="img1" src="__HOME__/img/pic11.png"/></i>回复</a>
+				</div>
+			</div>
+		</div> -->
+		<script>
+			var swiper = new Swiper('.contorl-wz', {
+				slidesPerView: 3,
+				paginationClickable: true,
+				spaceBetween: 10
+			});
+			$(function() {
+				$(".dianzan").click(function() {
+					if($(this).hasClass("pulse")) {
+						$(this).removeClass("pulse");
+					} else {
+						$(this).addClass("animated pulse");
+					}
+				})
+			})
+		</script>
+
+	</body>
+
+</html>

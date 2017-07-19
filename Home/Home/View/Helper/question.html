@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, minimum-scale=1, maximum-scale=1">
+		<title></title>
+		<link rel="stylesheet" href="__HOME__/css/swiper.min.css" />
+		<script type="text/javascript" src="__HOME__/js/jquery-1.9.1.min.js"></script>
+		<script type="text/javascript" src="__HOME__/js/swiper.min.js"></script>
+		<link rel="stylesheet" type="text/css" href="__HOME__/css/base.css" />
+		<link rel="stylesheet" href="__HOME__/css/main.css" />
+		<link rel="stylesheet" type="text/css" href="__HOME__/css/animate.css" />
+		<script src="__SLIKE__/layer.mobile-v2.0/layer_mobile/layer.js"></script> <!--Layer提示消息-->
+	</head>
+
+	<body class="back">
+
+		<ul class="tg-wt">
+			<h2>{$info.question}</h2>
+			<volist name="info['answer']" id="vo" key="k">
+				<li data-id="{$k}">
+					<i class="icon"></i>
+					<span>{$k}、{$vo}</span>
+				</li>
+			</volist>
+		</ul>
+		
+		<a href="javascript:">
+			<button class="btn z-submit">
+				提交问题
+			</button>
+		</a>
+
+	</body>
+<script>
+	var swiper = new Swiper('.contorl-wz', {
+		slidesPerView : 3,
+		paginationClickable : true,
+		spaceBetween : 10
+	});
+	$(function() {
+		$(".dianzan").click(function() {
+			if ($(this).hasClass("pulse")) {
+				$(this).removeClass("pulse");
+			} else {
+				$(this).addClass("animated pulse");
+			}
+		})
+	})
+
+	$(function() {
+		$(".tg-wt li").click(function() {
+			if ($(this).find(".icon").hasClass("huang")) {
+				$(this).find(".icon").removeClass("huang");
+				$(this).removeClass("active");
+			} else {
+				$(this).find(".icon").addClass("huang")
+				$(this).addClass("active")
+			}
+		})
+	var answer = [];
+		$('.tg-wt li').click(function(){
+			answer = []
+			var obj = $('.tg-wt li');
+			for(var i = 0;i<obj.length;i++){
+				if($(obj[i]).hasClass("active")){
+					console.log($(obj[i]).attr('data-id'))
+					answer.push($(obj[i]).attr('data-id'))
+				}else{
+					//console.log($(obj[i]).attr('data-id'))
+				}
+			}
+			console.log(answer);
+		})
+		
+		/*提交*/
+		$('.z-submit').click(function(){
+			
+			$.post("{:U('submitQuestion')}",{id:{$_GET['id']},answer:answer},function(data){
+				if(data.status){
+					setTimeout(function(){
+						location.href=data.url;
+					},1000);	
+				  }
+				  //提示
+				  layer.open({
+				    content: data.info
+				    ,skin: 'msg'
+				    ,time: 2 //2秒后自动关闭
+				  });
+			})
+		})
+	})
+</script>
+</html>

@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, minimum-scale=1, maximum-scale=1">
+		<title></title>
+		<link rel="stylesheet" href="__HOME__/css/swiper.min.css" />
+		<!-- <script type="text/javascript" src="__HOME__/js/jquery-1.9.1.min.js"></script> -->
+		<script type="text/javascript" src="__HOME__/js/swiper.min.js"></script>
+		<link rel="stylesheet" type="text/css" href="__HOME__/css/base.css" />
+		<link rel="stylesheet" href="__HOME__/css/main.css" />
+		<link rel="stylesheet" type="text/css" href="__HOME__/css/animate.css" />
+		
+		<script src="__HOME__/weui/dist/example/zepto.min.js"></script>
+    	<script src="__HOME__/weui/jweixin-1.0.0.js"></script>
+    	<link rel="stylesheet" type="text/css" href="__HOME__/weui/dist/style/weui.css" />
+    	
+    	<!-- 下拉刷新  -->
+    	<script src="__SLIKE__/dropload/dist/dropload.min.js"></script> <!--js-->
+    	<link rel="stylesheet" type="text/css" href="__SLIKE__/dropload/dist/dropload.css" />
+	</head>
+		<style>
+			.lib{position:relative;}
+			.lib .lib-xian{position:absolute;left:50%;top:0;width:1px;background:#E6E6E6;height:100%;}
+			
+			.lib-dw li a .tu.t1{
+				margin-bottom:-0.05em;
+			}
+			.lib-dw li a .tu.t2{
+				margin-bottom:-0.1em;
+			}
+			.lib-box a .tu img {
+			    max-width: 100%;
+			    height: auto;
+			}
+			.lib-box .wz5 {
+			    height: 3.5em;
+			}
+		</style>
+		
+		  <link rel="stylesheet" type="text/css" href="__SLIKE__/dropload/dist/dropload.css" />
+
+
+
+		<link rel="stylesheet" type="text/css"
+			href="__PUBLIC__/tongyong/style/tongyong.css">
+		<style type="text/css">
+		.warps-textCons {
+			text-align: center;
+			padding: 0em 0 1em 0;
+		}
+		
+		.warps-textCons img {
+		margin-top: 2em;
+			width: 35%;
+		}
+		
+		.warps-textCons h1 {
+			font-size: 0.9em;
+		}
+		.dropload-noData {
+		    color: #555;
+		}
+		.content {
+		    margin-bottom: 0.2rem;
+		}
+		</style>
+	<body>
+		<!-- <div class="swiper-container">
+			<div class="swiper-wrapper">
+				<volist name="lunbo" id="vo">
+					<div class="swiper-slide swiper-slide-active">
+						<a href=""><img src="{$vo.show_url}" width="100%" /></a>
+					</div>
+				</volist>
+			</div>
+			如果需要分页器
+			<div class="swiper-pagination ">
+			</div>
+
+		</div> -->
+
+
+	<div class="content">
+		<div class="search">
+			<input type="text" name="search" value="" placeholder="输入您想关注的话题进行搜索吧" />
+			<div class="icon">
+				<a href="javascript:" id="search"><img src="__HOME__/img/pic3.png" /></a>
+			</div>
+		</div>
+
+		<div class="swiper-container bigs">
+			<div class="swiper-wrapper">
+				<volist name="types" id="vo" key="k">
+				<div class="swiper-slide swiper-slide-active">
+					<ul class="fenlei">
+						<volist name="vo" id="voo">
+						<li><a href="{:U('Review/index/typeid/'.$voo['type_id'])}">
+								<i class="icone"><img src="{$voo.icon}" /></i> <span>{$voo.type_name}</span>
+						</a></li>
+						</volist>
+					</ul>
+				</div>
+				</volist>
+			</div>
+
+			<div
+				class="swiper-pagination swiper-pagination-clickable swiper-pagination-bullets">
+				<span
+					class="swiper-pagination-bullet swiper-pagination-bullet-active"></span>
+				<span class="swiper-pagination-bullet"></span> <span
+					class="swiper-pagination-bullet"></span>
+			</div>
+
+		</div>
+
+
+
+		<div class="floor2">
+			<h3>最新发布</h3>
+
+		</div>
+		
+	</div>
+		<div class="main-list">
+			
+		</div>
+		<div class="element">
+		</div>
+
+		<include file="Public:footer"/>
+		
+		<script>
+			var swiper = new Swiper('.swiper-container', {
+				pagination: '.swiper-pagination',
+				paginationClickable: true
+			});
+		</script>
+		
+		<script>
+			
+			$(function(){
+				var TAG = "{$_GET['i']}";//标签
+				var SEARCH = '';//搜索字符
+				var PAGE = 0;//页数
+				var SIZE = 4;//每页展示4个
+				var TYPEID = "{$_GET['typeid']}";
+				var ME;//下拉加载的对象
+				
+				$('#search').click(function(){
+					SEARCH = $('input[name="search"]').val();
+					PAGE = 1;
+					ME.unlock();//解锁
+					ME.noData(false);//设置有数据可以拉
+					
+	                $.post("{:U('Review/search')}",{page:PAGE,size:SIZE,search:SEARCH,i:TAG,typeid:TYPEID},function (data) {
+                       	if(data.status){
+                    	 	$('.main-list').html('');
+                    	 	PAGE = 1;
+                    	 	var arrlen = data.info.length;
+                    	 	var html = '';
+                    	 	for(var i = 0;i<arrlen;i++){
+                    	 		
+		            			html+= loadList(data.info[i],i);
+		            			if((i+1)==arrlen && arrlen%2!=0){
+		    						html +='<h6></h6>'
+		    							html +='</div>'
+		    							html +='</div>'
+		            			}
+                    	 	}
+                    	 	//加载到指定位置
+							$('.main-list').append(html);
+             			   
+                       	}else{
+                       	//提示
+              			    layer.open({
+              			       content: '网络错误'
+              			       ,skin: 'msg'
+              			       ,time: 2 //2秒后自动关闭
+              			    });
+                       	}
+                     	//加载完数据，重置
+                       	ME.resetload();
+                   })
+	                   
+				})
+				
+				/*点赞*/
+				$(".dianzan").live('click',function(){
+					if($(this).hasClass("pulse")){
+						$(this).removeClass("pulse");
+					}else{
+						$(this).addClass("animated pulse");
+					}
+					var id = $(this).attr('data-id');
+					var _this = this;
+					$.post("{:U('Answer/dianzan')}",{id:id},function(data){
+						if(data.status){
+							var num = parseInt($(_this).children('.zan').text())+1;
+							$(_this).children('.zan').text(num);
+						}
+					})
+				})
+				
+				var isnull = false;
+				/*下拉加载*/
+				$('.element').dropload({
+				    scrollArea : window,
+				    loadDownFn : function(me){
+				    	ME = me
+				    	PAGE++;
+				        $.ajax({
+				            type: 'POST',
+				            url: "{:U('Review/loadMore')}",
+				            data:{page:PAGE,size:SIZE,i:TAG,search:SEARCH,typeid:TYPEID},
+				            dataType: 'json',
+				            success: function(data){
+				            	var arrlen = data.length;
+				            	if(arrlen>0){
+				            		isnull = true;
+				            		var html = '';
+				            		for(var i=0; i<arrlen; i++){
+				            			
+				            			html+= loadList(data[i],i);
+				            			if((i+1)==arrlen && arrlen%2!=0){
+				    						html +='<h6></h6>'
+				    							html +='</div>'
+				    							html +='</div>'
+				            			}
+			                        }
+									//加载到指定位置
+									$('.main-list').append(html);
+				            	}else{
+				            		if(!isnull){
+					            		$('.main-list').append(nullhtml());
+				            		}
+			                        // 锁定
+			                        me.lock();
+			                        // 无数据
+			                        me.noData();
+			                    }
+				                
+				                //每次数据加载完，必须重置
+				                me.resetload();
+				            },
+				            error: function(xhr, type){
+				                //alert('Ajax error!');
+				                // 即使加载出错，也得重置
+				                me.noData();
+				                me.resetload();
+				            }
+				        });
+				    }
+				});
+			})
+			
+			/*列表HTML*/
+			function loadList(info,i){
+				var html = '';
+					if((i%2==0)){
+						html ='<div class="mid-box">'
+						html +='<div class="lib">'
+						html +='<div class="lib-box">'
+						html +='<a href="{:U('review/info')}&id='+info['id']+'"><i class="tu"><img src="'+info.show_url+'"/></i></a>'
+						html +='<p class="wz5">'+info.title+'</p>'
+						html +='<ul class="lib-dw">'
+						html +='<li>'
+						html +='<a href="javascript:"><i class="tu"><img src="__HOME__/img/pic6.png"/></i><span>'+info.good+'</span></a>'
+						html +='</li>'
+						html +='<li>'
+						html +='<a href="javascript:"><i class="tu t1"><img src="__HOME__/img/pic8.png"/></i><span>'+info.view+'</span></a>'
+						html +='</li>'
+						html +='<li>'
+						html +='<a href="javascript:"><i class="tu t2"><img src="__HOME__/img/pic7.png"/></i><span>'+info.reply+'</span></a>'
+						html +='</li>'
+						html +='<h6></h6>'
+						html +='</ul>'
+						html +='</div>'
+						html +='<div class="lib-xian">'
+						html +='</div>'
+					}else{
+						html +='<div class="lib-box flor">'
+						html +='<a href="{:U('review/info')}&id='+info['id']+'"><i class="tu"><img src="'+info.show_url+'"/></i></a>'
+						html +='<p class="wz5">'+info.title+'</p>'
+						html +='<ul class="lib-dw">'
+						html +='<li>'
+						html +='<a href="javascript:"><i class="tu"><img src="__HOME__/img/pic6.png"/></i><span>'+info.good+'</span></a>'
+						html +='</li>'
+						html +='<li>'
+						html +='<a href="javascript:"><i class="tu t1"><img src="__HOME__/img/pic8.png"/></i><span>'+info.view+'</span></a>'
+						html +='</li>'
+						html +='<li>'
+						html +='<a href="javascript:"><i class="tu t2"><img src="__HOME__/img/pic7.png"/></i><span>'+info.reply+'</span></a>'
+						html +='</li>'
+						html +='<h6></h6>'
+						html +='</ul>'
+						html +='</div>'
+						html +='<h6></h6>'
+						html +='</div>'
+						html +='</div>'
+					}
+				
+					return html;
+				}
+
+			function nullhtml(){
+				var html = '<section>'
+					html += '<div id="body-container">'
+					html += '<div class="warps-textCons">'
+					html += '<img src="__PUBLIC__/tongyong/images/png/11.png" />'
+					html += '</div>'
+					html += '</div>'
+					html += '</section>'
+					
+					return html;
+			}
+		</script>
+
+	</body>
+
+</html>

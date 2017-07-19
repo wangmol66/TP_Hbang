@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title>企业大记事</title>
+		<link rel="stylesheet" type="text/css" href="__HOME__/about/css/swiper.min.css" />
+		<link rel="stylesheet" type="text/css" href="__HOME__/about/css/base.css" />
+		<link rel="stylesheet" type="text/css" href="__HOME__/about/css/style.css" />
+		<script type="text/javascript" data-main="__HOME__/about/js/cont" src="__HOME__/about/js/require.js"></script>
+		<style>
+			.content{
+	/* 			height: 41px;
+   				 overflow: hidden; */
+   	 			/* font-size: 0.5em; */
+    	}
+		</style>
+	</head>
+	<body>
+		<foreach name="info" item="vo">
+			<div class="remember" onclick="location='{:U('about/info/id/'.$vo['id'])}'">
+				<div class="remember-img fl">
+					<img src="{$vo.show_url}"/>
+				</div>
+				<div class="remember-list">
+					<div class="remember-text">
+						<h2>{$vo.title}</h2>
+						<span>{$vo.addtime|date="Y-m-d",###}</span>
+						<div class="remember-text">
+							<p>{$vo.remark}</p>
+						</div>
+					</div>
+					<h6></h6>
+				</div>
+			</div>
+		</foreach>
+	</body>
+</html>

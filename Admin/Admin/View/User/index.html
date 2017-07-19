@@ -1,0 +1,87 @@
+<include file="Public:header"/>
+<div class="page-container"> 
+  <!-- BEGIN SIDEBAR --> 
+  <include file="Public:sidebar" /> 
+  <!-- END SIDEBAR --> 
+  <!-- BEGIN CONTENT -->
+  <div class="page-content-wrapper">
+    <div class="page-content"> 
+      <!-- BEGIN PAGE HEADER-->
+      <div class="row">
+        <div class="col-md-12"> 
+          <!-- BEGIN PAGE TITLE & BREADCRUMB-->
+          <h3 class="page-title"> 用户列表  </h3>
+          <ul class="page-breadcrumb breadcrumb">
+            <li> <a href="javascript:void(0);"> 用户 </a> <i class="fa fa-angle-right"></i> </li>
+            <li> 用户列表 </li>
+          </ul>
+          <!-- END PAGE TITLE & BREADCRUMB--> 
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12">
+          <div class="portlet">
+            <div class="portlet-body">
+              <div class="table-container">
+                <div class="table-actions-wrapper"> <span> </span> <a  class="btn btn-sm blue add-btn" href="{:U('add')}"><i class="fa fa-plus"></i> 新增用户 </a> </div>
+                <table class="table table-bordered table-striped table-hover" id="datatable">
+                  <thead>
+                    <tr class="heading" role="row">
+                        <th width="100px">UID</th>
+	                    <th>昵称</th>
+	                    <th width="120px">积分</th>
+	                    <th width="120px">登录次数</th>
+	                    <th width="120px">最后登陆时间</th>
+	                    <th width="120px">最后登录IP</th>
+	                    <th width="100px">状态</th>
+	                    <th width="100px">操作</th>
+                    </tr>
+                    <tr role="row" class="filter">
+                        <th><input type="text" class="form-control form-filter input-sm" name="uid"/></th>
+	                    <th><input type="text" class="form-control form-filter input-sm" name="name"/></th>
+	                    <th></th>
+	                    <th></th>
+	                    <th></th>
+	                    <th></th>
+	                    <th> <select name="status" class="form-control form-filter select2 input-sm">
+                      		<option value=""><?php echo '所有';?></option>
+                      		<?php foreach ($status as $k => $v):?>
+                      		<option value="<?php echo $k + 1;?>"><?php echo $v;?></option>
+                      		<?php endforeach;?>
+                        </select></th>
+	                    <th>
+	                       <div class="btn-group">
+							<a class="btn btn-xs filter-submit btn-default">
+								<i class="fa fa-search"></i> 搜索
+							</a>
+							<button data-toggle="dropdown" class="btn btn-default dropdown-toggle btn-xs" type="button"><i class="fa fa-angle-down"></i></button>
+							<ul role="menu" class="dropdown-menu pull-right">
+								<li>
+									<a href="javascript:void(0);" class="filter-cancel">重置</a>
+								</li>
+							</ul>
+						</div>
+                    </tr>
+                  </thead>
+                  <tbody>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- END CONTENT --> 
+  <script type="text/javascript">
+		$(function(){
+			datatable_init({
+				src: $("#datatable"),
+				sAjaxSource: "{:U('User/getLists?pid='.I('get.pid'))}",
+	            aoColumns:[{bSortable:false},{bSortable:false},{bSortable:false},{bSortable:false},{bSortable:false},{bSortable:false},{bSortable:false},{bSortable:false}],
+			});
+		});
+	</script> 
+</div>
+</body></html>

@@ -1,0 +1,130 @@
+<include file="Public:header"/>
+<div class="page-container"> 
+  <!-- BEGIN SIDEBAR --> 
+  <include file="Public:sidebar" /> 
+  <!-- END SIDEBAR --> 
+  <!-- BEGIN CONTENT -->
+  <div class="page-content-wrapper">
+    <div class="page-content"> 
+      <!-- BEGIN PAGE HEADER-->
+      <div class="row">
+        <div class="col-md-12"> 
+          <!-- BEGIN PAGE TITLE & BREADCRUMB-->
+          <h3 class="page-title"> 用户列表  </h3>
+          <ul class="page-breadcrumb breadcrumb">
+            <li> <a href="javascript:void(0);"> 用户 </a> <i class="fa fa-angle-right"></i> </li>
+            <li> 用户列表 </li>
+          </ul>
+          <!-- END PAGE TITLE & BREADCRUMB--> 
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12">
+          <div class="portlet">
+            <div class="portlet-body">
+              <div class="table-container">
+                <div class="table-actions-wrapper"> <span> </span> 
+               <!--  <select class="form-control input-inline input-small input-sm select-batch">
+					<option value="0">批量操作</option>
+				</select> -->
+									<!-- <a  class="btn btn-sm blue add-btn" href="{:U('add')}"><i class="fa fa-plus"></i> 新增用户 </a> -->
+                </div>
+                <table class="table table-bordered table-striped table-hover" id="datatable">
+                  <thead>
+                    <tr class="heading" role="row">
+                        <!-- <th width="36px"><input class="group-checkable" type="checkbox"></th> -->
+	                    <th width="40px">UID</th>
+	                    <th width="55px">头像</th>
+	                    <th width="100px">昵称</th>
+	                    <th width="100px">性别</th>
+	                    <th>所在地</th>
+	                    <th width="140px">关注时间</th>
+	                    <th width="140px">加入时间</th>
+	                    <th width="100px">是否关注</th>
+	                    <th width="120px">操作</th>
+                    </tr>
+                    <tr role="row" class="filter">
+	                    <th></th>
+	                    <th></th>
+	                    <th><input type="text" class="form-control form-filter input-sm" name="nickname"/></th>
+	                    <th><select name="sex" class="form-control form-filter select2 input-sm">
+                      		<option value="">全部</option>
+                      		<option value="1">男</option>
+                      		<option value="2">女</option>
+                        </select>
+                        </th>
+	                    <th></th>
+	                    <th></th>
+                        <th></th>
+	                    <th><select name="subscribe" class="form-control form-filter select2 input-sm">
+                      		<option value="">全部</option>
+                      		<option value="2">已关注</option>
+                      		<option value="1">未关注</option>
+                        </select></th>
+	                    <th>
+	                       <div class="btn-group">
+							<a class="btn btn-xs filter-submit btn-default">
+								<i class="fa fa-search"></i> 搜索
+							</a>
+							<button data-toggle="dropdown" class="btn btn-default dropdown-toggle btn-xs" type="button"><i class="fa fa-angle-down"></i></button>
+							<ul role="menu" class="dropdown-menu pull-right">
+								<li>
+									<a href="javascript:void(0);" class="filter-cancel">重置</a>
+								</li>
+							</ul>
+						</div>
+						</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- END CONTENT --> 
+  <script type="text/javascript">
+		$(function(){
+			datatable_init({
+				src: $("#datatable"),
+				sAjaxSource: "{:U('Member/getList')}",
+	            aoColumns:[
+	            	{bSortable:false},
+	            	{bSortable:false},
+	            	{bSortable:false},
+	            	{bSortable:false},
+	            	{bSortable:false},
+	            	{bSortable:false},
+	            	{bSortable:false},
+	            	{bSortable:false},
+	            	{bSortable:false},
+	            	],
+			});
+
+
+            $('.select-batch').change(function(){
+                var type = $(this).val();
+                var val=[];
+                var oB = $('.checkable');
+                for(var i = 0;i<oB.length;i++){
+                    if(oB[i].checked){
+                        val.push(oB[i].value);
+                    }
+                }
+                msg=['确定要删除已选用户么？'];
+                console.log(val);
+
+
+                Smelly.confirmAlert("{:U('member/checked')}",msg[type-1],{val:val,type:type},function(data){
+                    console.log(data);
+                });
+
+            })
+		});
+	</script> 
+</div>
+</body></html>

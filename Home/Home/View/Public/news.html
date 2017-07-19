@@ -1,0 +1,46 @@
+<style>
+.footer .ftt.wid33 {
+    width: 33.3%;
+}
+#noc{
+	color: #00bb9d;
+}
+</style>
+
+<div class="footer">
+		<div class="ftt wid33">
+			<a href="{:U('News/index')}">
+				<if condition="CONTROLLER_NAME eq 'News'">
+				<i><img src="__HOME__/img/foot1.png" width="20" height="20"/></i>
+				<p class="ftp1">"邦"您看会讯</p>
+				<else/>
+				<i><img src="__HOME__/img/i2-1.png" width="20" height="20"/></i>
+				<p>"邦"您看会讯</p>
+				</if>
+			</a>
+		</div>
+		
+		<div class="ftt wid33">
+			<a href="{:U('Helper/index')}">
+				<if condition="CONTROLLER_NAME eq 'Helper'">
+					<i><img src="__HOME__/img/pic35.png" width="20" height="20"/></i>
+					<p class="ftp1">会议助手</p>
+				<else/>
+					<i><img src="__HOME__/img/pic34.png" width="20" height="20"/></i>
+					<p>会议助手</p>
+				</if>
+			</a>
+		</div>
+
+		<div class="ftt wid33">
+			<a href="{:U('User/index/type/news')}">
+				<if condition="CONTROLLER_NAME eq 'User'">
+					<i><img src="__HOME__/img/i2-4.png" width="20" height="20"/></i>
+					<p id="noc">我的</p>
+				<else/>
+					<i><img src="__HOME__/img/rentou.png" width="20" height="20"/></i>
+					<p>我的</p>
+				</if>
+			</a>
+		</div>
+</div>

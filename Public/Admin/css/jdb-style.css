@@ -1,0 +1,44 @@
+@charset "utf-8";
+.cor10 {
+  color: #e75058;
+}
+.bg10 {
+  background: #e75058;
+}
+.page-header.navbar {
+  background: #e75058;
+}
+.page-sidebar .page-sidebar-menu .sub-menu li > a.selected:before {
+  background: #e75058;
+}
+.page-sidebar .page-sidebar-menu .sub-menu li > a:hover span,
+.page-sidebar .page-sidebar-menu .sub-menu li > a:hover i,
+.page-sidebar .page-sidebar-menu .sub-menu li > a.selected span,
+.page-sidebar .page-sidebar-menu .sub-menu li > a.selected i {
+  color: #e75058;
+}
+.navbar-nav > li > a:hover {
+  color: #e75058;
+}
+.navbar-nav > li > a:hover .icon-signout,
+.navbar-nav > li > a:hover .icon-user {
+  color: #e75058;
+}
+.message-frame h1 {
+  color: #e75058;
+}
+.message-frame b {
+  color: #e75058;
+}
+.add-letter {
+  background: #e75058;
+}
+.add-letter:hover {
+  background: #C7444B;
+}
+.btn {
+  background: #e75058;
+}
+.btn:hover {
+  background: #C7444B;
+}

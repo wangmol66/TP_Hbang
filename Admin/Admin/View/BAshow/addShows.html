@@ -1,0 +1,155 @@
+<html>
+<include file="Public:header"/>
+
+<script src="__STATIC__/metronic/plugins/bootstrap-daterangepicker/moment.min.js" type="text/javascript"></script>
+<script src="__STATIC__/metronic/plugins/bootstrap-daterangepicker/daterangepicker.js" type="text/javascript"></script>
+<script src="__STATIC__/metronic/plugins/bootstrap-fileinput/bootstrap-fileinput.js" type="text/javascript"></script>
+<script src="__STATIC__/metronic/plugins/bootstrap-wysihtml5/wysihtml5-0.3.0.js" type="text/javascript"></script>
+<script src="__STATIC__/metronic/plugins/bootstrap-wysihtml5/bootstrap-wysihtml5.js" type="text/javascript"></script>
+<script src="__STATIC__/metronic/scripts/custom/components-editors.js" type="text/javascript"></script>
+
+<link href="__STATIC__/metronic/plugins/bootstrap-daterangepicker/daterangepicker-bs3.css" rel="stylesheet" type="text/css" />
+<link href="__STATIC__/metronic/plugins/bootstrap-fileinput/bootstrap-fileinput.css" rel="stylesheet" type="text/css"/>
+<link href="__STATIC__/metronic/plugins/bootstrap-wysihtml5/bootstrap-wysihtml5.css" rel="stylesheet" type="text/css"/>
+<body>
+<div class="page-container">
+    <!-- BEGIN SIDEBAR -->
+    <include file="Public:sidebar" />
+    <!-- END SIDEBAR -->
+    <!-- BEGIN CONTENT -->
+    <style>
+        .table-scrollable > .table > thead > tr > th, .table-scrollable > .table > tbody > tr > th, .table-scrollable > .table > tfoot > tr > th, .table-scrollable > .table > thead > tr > td, .table-scrollable > .table > tbody > tr > td, .table-scrollable > .table > tfoot > tr > td {
+            white-space: initial;
+        }
+        b, strong {
+            font-weight: 400;
+        }
+        ul{padding: 0}
+    </style>
+    <div class="page-content-wrapper">
+        <div class="page-content">
+            <!-- BEGIN PAGE HEADER-->
+            <div class="row">
+                <div class="col-md-12">
+                    <!-- BEGIN PAGE TITLE & BREADCRUMB-->
+                    <h3 class="page-title"> {$meta_title}  </h3>
+                    <ul class="page-breadcrumb breadcrumb">
+                        <li> <a href="javascript:void(0);" style="font-size: 13px">{$meta_title_top}</a> <i class="fa fa-angle-right"></i> </li>
+                        <li> {$meta_title} </li>
+                    </ul>
+                    <!-- END PAGE TITLE & BREADCRUMB-->
+                </div>
+            </div>
+
+            <div class="portlet-body">
+                <form class="form-horizontal" action="{:U('add')}" method="post" novalidate="novalidate" id="add-zhangjie">
+
+                    <input class="form-control" name="article_id" placeholder="" value="{$id}" type="hidden">
+                    <div class="form-body">
+                        <div class="form-group">
+                            <label class="col-lg-3 control-label">段落标题：</label>
+                            <div class="col-lg-5">
+                                <input class="form-control" name="page_name" placeholder="课程标题" value="" type="text">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-3 control-label">排序：</label>
+                            <div class="col-lg-2">
+                                <div class="input-group">
+                                    <input class="form-control" placeholder="" name="page_sequence" value="" type="text">
+                                    <span class="input-group-btn">
+									</span>
+                                </div>
+                            </div>
+                        </div>
+                        <textarea class="form-control" rows="6" id="page_content" name="page_content" style="display: none"></textarea>
+                        <div class="form-group">
+                            <label class="col-lg-3 control-label">段落内容</label>
+                            <div class="col-lg-3">
+                              <div id="edit"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-actions fluid">
+                        <div class="col-md-offset-3 col-md-9">
+                            <button type="button" class="btn green add-zhangjie">提交课程</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+    </div>
+    <include file="Public:froala" />
+    <script>
+
+        $(function(){
+            $.FroalaEditor.DefineIcon('imageInfo', {NAME: 'info'});
+            $.FroalaEditor.RegisterCommand('imageInfo', {
+                title: 'Info',
+                focus: false,
+                undo: false,
+                refreshAfterCallback: false,
+                callback: function () {
+                    var $img = this.image.get();
+                    alert($img.attr('src'));
+                }
+            });
+
+
+
+            $('#edit').froalaEditor({
+                height: 500,
+                width:500,
+                placeholderText: '请输入内容',
+                charCounterMax: 3000,
+                imageUploadURL: "{:U('uploadPic')}",
+                enter: $.FroalaEditor.ENTER_BR,
+                language: 'zh_cn',
+                toolbarButtons: [
+                    'bold', 'italic', 'underline', 'paragraphFormat', 'align','color','fontSize','insertImage','insertTable','undo', 'redo'
+                ]
+            }).on('froalaEditor.contentChanged', function (e, editor) {
+                        $('#page_content').html(editor.html.get());
+            })
+//            $('#edit').froalaEditor({
+//                // Set image buttons, including the name
+//                // of the buttons defined in customImageButtons.
+//                imageEditButtons: ['imageDisplay', 'imageAlign', 'imageInfo', 'imageRemove']
+//            })
+            $('#add-zhangjie').validate({
+                submitHandler: function (form) {
+                    //loading带文字
+                    var formObj = $(form);
+                    formObj.ajaxSubmit({
+                        datatype : "json",
+                        success:function(data,status){
+                            console.log(data)
+                            if (data.status){
+                                show_message({status: 1, info: data.info});
+                            }else{
+                                show_message({status: 0, info: data.info});
+                            }
+                        }
+                    });
+                }
+            });
+
+            $(".add-zhangjie").live('click',function () {
+                if ($('#add-zhangjie').validate().form()) {
+                    $('#add-zhangjie').submit(); //form validation success, call ajax form submit
+                }
+                return false;
+            })
+
+        });
+        $(function() {
+
+
+
+        });
+    </script>
+</div>
+
+</body>
+</html>

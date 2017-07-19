@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, minimum-scale=1, maximum-scale=1">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<title></title>
+		<link rel="stylesheet" href="__HOME__/css/mui.min.css" />
+		<script type="text/javascript" src="__HOME__/js/jquery-1.9.1.min.js"></script>
+		<script type="text/javascript" src="__HOME__/js/mui.min.js"></script>
+		<link rel="stylesheet" type="text/css" href="__HOME__/css/base.css" />
+		<link rel="stylesheet" href="__HOME__/css/main.css" />
+		<link rel="stylesheet" type="text/css" href="__HOME__/css/animate.css" />
+		<script src="__SLIKE__/layer.mobile-v2.0/layer_mobile/layer.js"></script> <!--Layer提示消息-->
+		<style type="text/css">
+
+			.mui-preview-image.mui-fullscreen {
+				position: fixed;
+				z-index: 20;
+				background-color: #000;
+			}
+			.mui-preview-header,
+			.mui-preview-footer {
+				position: absolute;
+				width: 100%;
+				left: 0;
+				z-index: 10;
+			}
+			.mui-preview-header {
+				height: 44px;
+				top: 0;
+			}
+			.mui-preview-footer {
+				height: 50px;
+				bottom: 0px;
+			}
+			.mui-preview-header .mui-preview-indicator {
+				display: block;
+				line-height: 25px;
+				color: #fff;
+				text-align: center;
+				margin: 15px auto 4;
+				width: 70px;
+				background-color: rgba(0, 0, 0, 0.4);
+				border-radius: 12px;
+				font-size: 16px;
+			}
+			.mui-preview-image {
+				display: none;
+				-webkit-animation-duration: 0.5s;
+				animation-duration: 0.5s;
+				-webkit-animation-fill-mode: both;
+				animation-fill-mode: both;
+			}
+			.mui-preview-image.mui-preview-in {
+				-webkit-animation-name: fadeIn;
+				animation-name: fadeIn;
+			}
+			.mui-preview-image.mui-preview-out {
+				background: none;
+				-webkit-animation-name: fadeOut;
+				animation-name: fadeOut;
+			}
+			.mui-preview-image.mui-preview-out .mui-preview-header,
+			.mui-preview-image.mui-preview-out .mui-preview-footer {
+				display: none;
+			}
+			.mui-zoom-scroller {
+				position: absolute;
+				display: -webkit-box;
+				display: -webkit-flex;
+				display: flex;
+				-webkit-box-align: center;
+				-webkit-align-items: center;
+				align-items: center;
+				-webkit-box-pack: center;
+				-webkit-justify-content: center;
+				justify-content: center;
+				left: 0;
+				right: 0;
+				bottom: 0;
+				top: 0;
+				width: 100%;
+				height: 100%;
+				margin: 0;
+				-webkit-backface-visibility: hidden;
+			}
+			.mui-zoom {
+				-webkit-transform-style: preserve-3d;
+				transform-style: preserve-3d;
+			}
+			.mui-slider .mui-slider-group .mui-slider-item img {
+				width: auto;
+				height: auto;
+				max-width: 100%;
+				max-height: 100%;
+			}
+			.mui-android-4-1 .mui-slider .mui-slider-group .mui-slider-item img {
+				width: 100%;
+			}
+			.mui-android-4-1 .mui-slider.mui-preview-image .mui-slider-group .mui-slider-item {
+				display: inline-table;
+			}
+			.mui-android-4-1 .mui-slider.mui-preview-image .mui-zoom-scroller img {
+				display: table-cell;
+				vertical-align: middle;
+			}
+			.mui-preview-loading {
+				position: absolute;
+				width: 100%;
+				height: 100%;
+				top: 0;
+				left: 0;
+				display: none;
+			}
+			.mui-preview-loading.mui-active {
+				display: block;
+			}
+			.mui-preview-loading .mui-spinner-white {
+				position: absolute;
+				top: 50%;
+				left: 50%;
+				margin-left: -25px;
+				margin-top: -25px;
+				height: 50px;
+				width: 50px;
+			}
+			.mui-preview-image img.mui-transitioning {
+				-webkit-transition: -webkit-transform 0.5s ease, opacity 0.5s ease;
+				transition: transform 0.5s ease, opacity 0.5s ease;
+			}
+			@-webkit-keyframes fadeIn {
+				0% {
+					opacity: 0;
+				}
+				100% {
+					opacity: 1;
+				}
+			}
+			@keyframes fadeIn {
+				0% {
+					opacity: 0;
+				}
+				100% {
+					opacity: 1;
+				}
+			}
+			@-webkit-keyframes fadeOut {
+				0% {
+					opacity: 1;
+				}
+				100% {
+					opacity: 0;
+				}
+			}
+			@keyframes fadeOut {
+				0% {
+					opacity: 1;
+				}
+				100% {
+					opacity: 0;
+				}
+			}
+			p img {
+				max-width: 100%;
+				height: auto;
+			}
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+.tank {
+    width: 73%;
+    padding: 0 10px;
+    /* margin-top: 178px; */
+    background: #fff;
+	height: 10em;
+    margin: 0 auto;
+    position: fixed;
+    top: 3%;
+    border-radius: 8px;
+    left:50%;
+    margin-left:-36.5%;
+    z-index:9999;
+
+}
+
+.tank textarea {
+    width: 100%;
+    padding: 4px;
+    border-radius: 5px;
+    margin-top: 4%;
+    height: 71%;
+    border: 1px solid #E4DEDE;
+}
+
+.tank a {
+	border: 1px solid #ccc;
+	color: #4DB335;
+	border-radius: 2px;
+	font-size: 13px;
+	padding: 3px;
+	float: right;
+}
+
+.zhezao {
+	z-index: 999;
+	position: fixed;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	background: #000;
+	opacity: 0.5;
+	filter: alpha(opacity = 50);
+	-moz-opacity: 0.5;
+	background-size: 100% 100%;
+	display: none;
+}
+
+.tank button{
+	border: 0;
+    background: #1FC3A9;
+    height: 20%;
+    width: 100%;
+    position: absolute;
+    left: 0;
+	bottom:0;
+    border-radius: 0px 0px 8px 8px;
+}
+
+.list .tu1{
+	background: url(__HOME__/img/pic12.png) no-repeat;
+	width: 15px;
+	height: 15px;
+	display: block;
+	position: absolute;
+	top: 0;
+	right: 0;
+	background-size: 100%;
+}
+.list .tu1.huang{
+	background: url(__HOME__/img/1-i.png) no-repeat;
+	width: 15px;
+	height: 15px;
+	display: block;
+	position: absolute;
+	top: 0;
+	right: 0;
+	background-size: 100%;
+}
+
+.introduce-img{
+	height:auto !important;
+	
+
+}
+.introduce-img .row2{margin:0 -1.6%;}
+
+.introduce-img a{
+	width:30%;
+	float:left;
+	overflow:hidden;
+	height:8em;
+	margin:0 1.6%;
+}
+.introduce-img a img{
+	width:100%;
+	height:100%;
+}
+.introduce-img:after{
+	content:'';
+	display:block;
+	clear:both;
+}
+
+
+.ll{
+    width: 20px;
+    height: 15px;
+    display: inline-block;
+    margin-right: 0.3em;
+    background-size: 100%;
+    }
+</style>
+	</head>
+
+	<body>
+
+		<div class="content marginB">
+			<div class="mid-box">
+				<div class="tuwen">
+					<div class="list">
+						<a href=""><i class="touxiang"><img src="{$info.head_url}"/></i></a>
+						<h3>{$info.author}</h3>
+						<i class="tu1 <?php if($iscoll){echo 'huang';};?>" id="shouc"></i>
+						<script type="text/javascript">
+							$(function(){
+								$('#shouc').click(function(){
+									var _this = this;
+									
+									if ($(_this).hasClass("huang")) {
+										$(_this).removeClass("huang");
+										$(_this).siblings(".huang").addClass("huang");
+										
+									}else{
+										$(_this).addClass("huang");
+										$(_this).siblings(".huang").removeClass("huang");
+									}
+									
+									$.post("{:U('Answer/shouc')}",{id:"{$info.id}"},function(data){
+										if(data.status){
+											//提示
+						      			    layer.open({
+						      			       content: data.info
+						      			       ,skin: 'msg'
+						      			       ,time: 2 //2秒后自动关闭
+						      			    });
+										}
+									})
+								})
+							})
+						</script>
+						<p class="time">{$info.addtime_2}</p>
+						<h6></h6>
+						<div class="list-right">
+							<span>浏览:{$info.view}</span>
+							<span>评论:{$info.reply}</span>
+							<span>点赞:{$info.good}</span>
+						</div>
+					</div>
+					<p class="wz1">{$info.title}</p>
+				</div>
+				<div class="introduce">
+					<div class="wz3">
+						<p>{$info.content}</p>
+					</div>
+					<div class="introduce-img">
+						<div class="row2">
+							<volist name="info['images_1']" id="vo">
+							<a href="javascript:;"><img src="{$vo}" data-preview-src="" data-preview-group="1" style="max-width: 100%;width: auto;height: auto; max-height: none;"/></a>
+							</volist>
+							<h6></h6>
+						</div>
+					</div>
+				</div>
+			</div>
+			<if condition="!empty($authority)">
+			
+				<div class="mid-box">
+					<div class="tuwen">
+						<div class="list">
+							<a href=""><i class="touxiang"><img src="{$authority.headimgurl}"/></i></a>
+							<h3>{$authority.nickname}</h3>
+							<p class="time">{$authority.addtime_2}</p>
+							<h6></h6>
+							<div class="list-right">
+								<div class="quanwei">
+									<img src="__HOME__/img/pic9.png" />
+								</div>
+							</div>
+						</div>
+						<p class="wz4">{$authority.content}</p>
+					</div>
+				</div>
+			</if>
+			<div class="mid-box">
+				<div class="mid-top">
+					<h3>评论</h3>
+				</div>
+				<volist name="reply" id="vo">
+				<div class="tuwen">
+					<div class="list">
+						<a href=""><i class="touxiang"><img class="tub-img" src="{$vo.headimgurl}" style="border-radius: 50%;"/></i></a>
+						<h3>{$vo.nickname}</h3>
+						<p class="time">{$vo.addtime_2}</p>
+						<h6></h6>
+					</div>
+					<p class="wz4">{$vo.content}</p>
+					<div class="zan">
+						<em style="font-size: 0.8em;color: #999;margin-left: 1em;" class="dianzan" data-type="reply" data-id="{$vo.rid}"><i class="tu {$vo['dianzan'] == 1?'lv':'ll'}" ><img style="width: 20px;height: 15px;" src="__HOME__/img/pic6.png"/></i>点赞(<span class="zan-num" style="font-size:12px">{$vo.good}</span>)</em>
+						<a  <if condition="$vo['user_id'] neq UID"> href="{:U('user/reply/type/answer/id/'.$info['id'].'/rid/'.$vo['rid'])}" <else/> href="javascript:msg()"</if> data-id="{$vo.rid}"><i class="tu"><img src="__HOME__/img/pic7.png"/></i>回复</a>
+					</div>
+					<h6></h6>
+					<div class="pinglun">
+						<volist name="vo['child']" id="voo">
+						<if condition="$voo['prid'] eq $vo['rid']">
+							<p <if condition="$voo['user_id'] neq UID"> onclick="location ='{:U('user/reply/type/answer/id/'.$info['id'].'/rid/'.$voo['rid'])}'" <else/>onclick="msg()"</if> >
+								<label  data-id="{$voo.rid}">{$voo.nickname}：</label>{$voo.content}
+							</p>
+						<else/>
+							<p <if condition="$voo['user_id'] neq UID"> onclick="location ='{:U('user/reply/type/answer/id/'.$info['id'].'/rid/'.$voo['rid'])}'" <else/>onclick="msg()"</if>>
+								<label data-id="{$voo.rid}">{$voo.nickname}：</label>回复<label <if condition="$voo['reply']['user_id'] neq UID"> class="reply-user"<else/>onclick="msg()"</if> data-id="{$voo.rid}">{$voo.reply.nickname}：</label>{$voo.content}
+							</p>
+						</if>
+						</volist>
+					</div>
+				</div>
+				</volist>
+			</div>
+		</div>
+
+		<div class="footer za">
+			<div class="flo-box">
+				<div class="flo">
+					<b data-id="{$info.id}" data-type="answer" class="dianzan"><i class="tu2 {$info['dianzan'] == 1?'bai':''}"></i>点赞</b>
+				</div>
+				<div class="flo">
+					<a href="{:U('user/reply/type/answer/id/'.$info['id'].'/rid/0')}"><i class="tu"><img class="img1" src="__HOME__/img/pic11.png"/></i>回复</a>
+				</div>
+			</div>
+		</div>
+		<div class="zhezao"></div>
+			<div class="tank" style="display:none">
+				<textarea rows="3" cols="20"></textarea>
+				
+				<button>提交</button>
+			</div>
+		<script>
+		
+		
+			$(function(){
+			
+			})
+		
+		
+		
+			
+			var PRID = 0;//回复回复的ID  0则是回复的文章
+			
+			function msg(){
+		       	//提示
+  			    layer.open({
+  			       content: '不能回复自己'
+  			       ,skin: 'msg'
+  			       ,time: 2 //2秒后自动关闭
+  			    });
+		       	return false;
+			}
+			
+			$(function() {
+				
+				/* $(".dianji").click(function(){
+					$(".zhezao").show();
+					$(".tank").show()
+					PRID = 0;//回复ID
+					$(".tank textarea").focus();
+				}) */
+
+				
+/* 				$(".reply-user").click(function(){
+					$(".zhezao").show();
+					$(".tank").show()
+					PRID = $(this).attr('data-id');//回复ID
+					$(".tank textarea").focus();
+				}) */
+				
+				/* $(".tank button").click(function(){
+						
+						var text = $(".tank").find("textarea").val();
+						var id = "{$_GET['id']}"
+						if(text == ''){
+							//提示
+		      			    layer.open({
+		      			       content: '回复内容不能为空'
+		      			       ,skin: 'msg'
+		      			       ,time: 2 //2秒后自动关闭
+		      			    });
+							return 0;
+						}
+						$.post("{:U('Answer/reply')}",{id:id,text:text,prid:PRID},function(data){
+							if(data.status){
+								window.location.href="";
+							}
+						})
+						
+						$(".tank").hide().find("textarea").val("");
+						$(".zhezao").hide();
+					})
+					
+					$(".zhezao").click(function(){
+						$(".tank").hide().find("textarea").val("");
+						$(".zhezao").hide();
+					}) */
+			})
+			
+			$(function(){
+				/*点赞*/
+				$(".dianzan").on('click',function(){
+					if($(this).hasClass("pulse")){
+						$(this).removeClass("pulse");
+					}else{
+						$(this).addClass("animated pulse");
+					}
+					var id = $(this).attr('data-id');
+					var type = $(this).attr('data-type');
+					var _this = this;
+					$.post("{:U('Answer/dianzan')}",{id:id,type:type},function(data){
+						if(data.status){
+							if(type == 'reply'){
+								var num = parseInt($(_this).children('.zan-num').text())+1;
+								$(_this).children('.zan-num').text(num);
+							}
+							
+							//提示
+		      			    layer.open({
+		      			       content: '点赞成功'
+		      			       ,skin: 'msg'
+		      			       ,time: 2 //2秒后自动关闭
+		      			    });
+							if(type == 'answer'){
+								$(".tu2").addClass("bai"); //整片点赞
+							}else{
+			      			 	$(_this).children(".tu").addClass("lv");//评论点赞
+							}
+						}else{
+							//提示
+		      			    layer.open({
+		      			       content: '不能重复点赞'
+		      			       ,skin: 'msg'
+		      			       ,time: 2 //2秒后自动关闭
+		      			    });
+						}
+					})
+
+				})
+				
+				mui('body').on('tap','a',function(){
+				    window.top.location.href=this.href;
+				});
+			})
+		</script>
+
+	</body>
+	
+	
+	<script type="text/javascript" src="__HOME__/js/mui.previewimage.js"></script>
+	<script type="text/javascript" src="__HOME__/js/mui.zoom.js"></script>
+	<script>
+		mui.previewImage();
+	</script>
+</html>
