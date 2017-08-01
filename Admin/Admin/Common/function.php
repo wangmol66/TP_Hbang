@@ -687,19 +687,19 @@ function exportExcel($expTitle,$expCellName,$expTableData){
     exit;
 }
 
-function downloadExcel(){
-    $filename="20170104.xls";
-    $file=fopen($filename,"r");
-//    print_r($filename);
-//    return;
-        //打开文件
-    header("Content-type:application/octet-stream");
-    header("Accept-Ranges:bytes");
-    header("Content-Type:application/msexcel");
-    header("Accept-Length:".filesize($filename));
-    header("Content-Disposition:attachment;filename=".$filename);
-    echo fread($file,filesize($filename));
-    fclose($file);
+function downloadExcel($filename = '20170104.xls'){
+	$filename='Excel/'.$filename;
+	$file=fopen($filename,"r");
+	//    print_r($filename);
+	//    return;
+	//打开文件
+	header("Content-type:application/octet-stream");
+	header("Accept-Ranges:bytes");
+	header("Content-Type:application/msexcel");
+	header("Accept-Length:".filesize($filename));
+	header("Content-Disposition:attachment;filename=".$filename);
+	echo fread($file,filesize($filename));
+	fclose($file);
 }
 /**
 +----------------------------------------------------------
@@ -782,4 +782,21 @@ function importExecl($file){
     unset($PHPExcel);
     unlink($file);
     return array("error"=>1,"data"=>$array);
+}
+
+
+/**
+ * 返回导入的数据
+ * @param string $name
+ * @return mixed
+ */
+function getImport($name = 'import'){
+	if(isset($_FILES[$name]) && ($_FILES[$name]["error"] == 0)){
+		$result = importExecl($_FILES[$name]["tmp_name"]);
+		$data = array();
+		if($result["error"] == 1){
+			$data = $result["data"][0]["Content"];
+		}
+		return $data;
+	}
 }

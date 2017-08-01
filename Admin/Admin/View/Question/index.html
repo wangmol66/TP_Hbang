@@ -1,0 +1,227 @@
+<include file="Public:header"/>
+<div class="page-container"> 
+  <!-- BEGIN SIDEBAR --> 
+  <include file="Public:sidebar" /> 
+  <!-- END SIDEBAR --> 
+  <!-- BEGIN CONTENT -->
+    <style>
+        .table-scrollable > .table > thead > tr > th, .table-scrollable > .table > tbody > tr > th, .table-scrollable > .table > tfoot > tr > th, .table-scrollable > .table > thead > tr > td, .table-scrollable > .table > tbody > tr > td, .table-scrollable > .table > tfoot > tr > td {
+            white-space: initial;
+        }
+        b, strong {
+            font-weight: 400;
+        }
+        ul{padding: 0}
+    </style>
+  <div class="page-content-wrapper">
+    <div class="page-content"> 
+      <!-- BEGIN PAGE HEADER-->
+      <div class="row">
+        <div class="col-md-12"> 
+          <!-- BEGIN PAGE TITLE & BREADCRUMB-->
+          <h3 class="page-title"> {$meta_title}  </h3>
+          <ul class="page-breadcrumb breadcrumb">
+            <!-- <li> <a href="javascript:void(0);" style="font-size: 13px">{$meta_title_top}</a> <i class="fa fa-angle-right"></i> </li> -->
+            <li>   </li>
+          </ul>
+          <!-- END PAGE TITLE & BREADCRUMB--> 
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12">
+          <div class="portlet">
+            <div class="portlet-body">
+              <div class="table-container">
+
+                <div class="table-actions-wrapper"> <span> </span>
+                <select
+                        class="form-control input-inline input-small input-sm select-batch">
+                    <option value="0">批量操作</option>
+                    <option value="1">批量删除</option>
+                </select>
+                    <!-- <button class="btn btn-sm green excel"><i class="fa fa-plus"></i>导入Excel</button> -->
+                    <button class="btn btn-sm green add-btn add-goods"  data-toggle="modal"><i class="fa fa-plus"></i>添加题包</button>
+                </div>
+                <table class="table table-bordered table-striped table-hover" style="font-size: 1.3px;" id="datatable">
+                  <thead>
+                    <tr class="heading" role="row">
+                        <th width="40px"><input class="group-checkable" type="checkbox"></th>
+                        <th>题包名称</th>
+                        <th width="100px">类型</th>
+                        <th width="100px">分数</th>
+                        <th width="150px">创建时间</th>
+                        <th width="100px">操作</th>
+                    </tr>
+                    <tr role="row" class="filter">
+                        <th></th>
+                        <th><input type="text" class="form-control form-filter input-sm" name="que_title"/></th>
+                        <th>
+                        <!-- <select name="que_type" class="form-control form-filter select2 input-sm">
+                            <option value="">全部</option>
+                            <option value="1">考试</option>
+                            <option value="2">练习</option>
+                        </select> -->
+                        </th>
+                        
+	                    <th></th>
+                        <th></th>
+	                    <th>
+	                       <div class="btn-group">
+							<a class="btn btn-xs filter-submit btn-default">
+								<i class="fa fa-search"></i> 搜索
+							</a>
+							<button data-toggle="dropdown" class="btn btn-default dropdown-toggle btn-xs" type="button"><i class="fa fa-angle-down"></i></button>
+							<ul role="menu" class="dropdown-menu pull-right">
+								<li>
+									<a href="javascript:void(0);" class="filter-cancel">重置</a>
+								</li>
+							</ul>
+						</div>
+                    </tr>
+                  </thead>
+                  <tbody>
+                  </tbody>
+                </table>
+                  <div class="form-actions fluid">
+
+                  </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+    <include file="Public:model" />
+    <script>
+
+            $(function(){
+                //增加
+                $('.edit').live('click',function () {
+                    var model = $('#myModal');
+                    var obj=Object.create(Editer);
+                    var url = $(this).attr('href');
+                    
+                    obj.Ajax(url,function (data) {
+                        model.find('#add-address').attr('action',"{:U('savePackage')}");
+                        model.find('.modal-title').html("编辑题包");
+                        model.find('.btn-primary').html("立即保存");
+                        model.find('.modalbody').html('');
+                        
+                        model.find('.modalbody').append(obj.input('ID','id',data.id,false,true));//添加了一个文字编辑器
+                        model.find('.modalbody').append(obj.input('题包名称','title',data.title));//添加了一个文字编辑器
+                        //var tag_arr=[{'v':'1','k':'考试'},{'v':'2','k':'练习'},{'v':'3','k':'测试题包'}]
+                        //model.find('.modalbody').append(obj.select2('题包类型','type',obj.getOption(tag_arr,'v','k',data.type),'选择题包类型'));
+                        //$('#type').select2();
+                    
+                        model.modal();
+                        App.unblockUI();
+	                    $.e_validate.init('#add-address',{modal:model,ignore:''});
+                    })
+                    return false;
+                })
+
+                
+                $('.add-goods').live('click',function () {
+                    var model = $('#myModal');
+                    var obj=Object.create(Editer);
+                    //obj.Ajax("{:U('getInfo')}",function (data) {
+                        model.find('#add-address').attr('action',"{:U('savePackage')}");
+                        model.find('.modal-title').html("添加题包");
+                        model.find('.btn-primary').html("立即添加");
+                        model.find('.modalbody').html('');
+                        
+                        model.find('.modalbody').append(obj.input('题包名称','title'));//添加了一个文字编辑器
+                        //var tag_arr=[{'v':'1','k':'考试'},{'v':'2','k':'练习'},{'v':'3','k':'测试题包'}]
+                        //model.find('.modalbody').append(obj.select2('题包类型','type',obj.getOption(tag_arr,'v','k'),'选择题包类型'));
+                        //$('#type').select2();
+                        model.modal();
+                        App.unblockUI();
+                        $.e_validate.init('#add-address',{modal:model,ignore:''});
+                    //})
+
+                })
+
+               /*  $('.excel').live('click',function () {
+                    var model = $('#myModal');
+                    var obj=Object.create(Editer);
+                    //obj.Ajax("{:U('getTag')}",function (dataTag) {
+                        model.find('#add-address').attr('action',"{:U('impUser')}");
+                        model.find('.modal-title').html("导入Excel");
+                        model.find('.btn-primary').html("立即导入");
+                        model.find('.modalbody').html('');
+
+                        model.find('.modalbody').append(obj.InputFile('import','点击上传Excel'));
+                        model.find('.modalbody').append(obj.ExpTemplate("{:U('expUser')}",'下载Excel模版'));
+                        
+                        //var tag_arr=[{'v':'课后练习','k':'课后练习'},{'v':'考试','k':'考试'}]
+                        //model.find('.modalbody').append(obj.select('试题类型：','exa_type',obj.getOption(tag_arr,'v','k',1)));
+                        //model.find('.modalbody').append(obj.select('试题标签：','exa_tag',obj.getOption(dataTag,'sec_name','sec_name',1)));
+                    //})
+                    model.modal();
+                    App.unblockUI();
+                    //                    ComponentsEditors.init();
+                    $.e_validate.init('#add-address',{modal:model,ignore:''});
+                }) */
+            });
+
+    </script>
+    </div>
+
+
+
+    <!-- END CONTENT -->
+    <!-- END CONTENT -->
+  <script type="text/javascript">
+      //图片点击后的方法
+		$(function(){
+
+			datatable_init({
+				src: $("#datatable"),
+				sAjaxSource: "{:U('getList?id='.$paper_id)}",
+	            aoColumns:[
+	            	{bSortable:false},
+	            	{bSortable:false},
+	            	{bSortable:false},
+	            	{bSortable:false},
+	            	{bSortable:false},
+	            	{bSortable:false},
+	            	],
+			});
+
+            $('.select-batch').change(function(){
+                var type = $(this).val();
+                var val=[];
+                var oB = $('.checkable');
+                for(var i = 0;i<oB.length;i++){
+                    if(oB[i].checked){
+                        val.push(oB[i].value);
+                    }
+                }
+                
+                $(this).find("option[value='0']").attr("selected",true);
+                
+                if(val.length<=0){
+                	Smelly.confirm(function(){
+                		
+                	},'<code>请先勾选数据</code>');
+                	return 0;
+                }
+                
+                msg=['确定要删除已选数据么？'];
+                console.log(val);
+
+
+                Smelly.confirmAlert("{:U('Question/checkedPackage')}",msg[type-1],{val:val,type:type},function(data){
+                    console.log(data);
+                });
+                
+            })
+        });
+	</script>
+
+</div>
+
+</body>
+</html>

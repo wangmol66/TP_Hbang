@@ -19,7 +19,7 @@ class Weixin
             }
 
             if(empty($wechat)){
-            	$code=$this->code_to_host();//get_wechat_code code_to_host; //切换本地与线上授权
+            	$code=$this->get_wechat_code();//get_wechat_code code_to_host; //切换本地与线上授权
                 $wechat=$this->get_oauth2_openid($code);
                 $_SESSION['wechat']=$wechat;
                 return $wechat;
@@ -138,7 +138,6 @@ class Weixin
         $url = "https://api.weixin.qq.com/sns/oauth2/access_token?appid=".APPID."&secret=".APPSECRET."&code=".$code."&grant_type=authorization_code";
         $rets =  $this->curl_get_contents($url);
         $ret_arr = json_decode($rets,true);
-        
         if(!empty($ret_arr['openid'])){
             return  $ret_arr['openid'];
         }
@@ -168,8 +167,9 @@ class Weixin
             	
                 if($w_user['errcode']== '40003')
                 {
-                    echo "ERROR:openid error!";
-                    exit();
+                	echo '<meta name="viewport" content="width=device-width, minimum-scale=1, maximum-scale=1">';
+                	echo "ERROR:".$w_user['errmsg'];
+                	exit();
                 }
             }
             return $w_user;
